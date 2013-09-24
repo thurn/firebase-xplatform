@@ -28,14 +28,14 @@ class TestEntryPoint implements EntryPoint {
             objects.add("bar2");
             fb.addListenerForSingleValueEvent(new ValueEventListener() {
               @Override
+              public void onCancelled() {}
+
+              @Override
               public void onDataChange(DataSnapshot snapshot) {
                 @SuppressWarnings("unchecked")
                 List<Double> list = (List<Double>) snapshot.getValue();
                 log("should be 'bar2': <" + list.get(1) + "> should be 234.2 <" + list.get(0) + ">");
               }
-
-              @Override
-              public void onCancelled() {}
             });
             CompletionListener onComplete = new CompletionListener() {
               @Override
@@ -47,15 +47,15 @@ class TestEntryPoint implements EntryPoint {
             Firebase fb2 = new Firebase("https://gwt.firebaseio.com/bar").push();
             fb2.addListenerForSingleValueEvent(new ValueEventListener() {
               @Override
+              public void onCancelled() {}
+
+              @Override
               public void onDataChange(DataSnapshot snapshot) {
                 Map<String, Object> map =
                     snapshot.getValue(new GenericTypeIndicator<Map<String, Object>>() {});
                 log("Contains pushed values: "
                     + (map.containsValue("value") && map.containsValue(16.0)));
               }
-
-              @Override
-              public void onCancelled() {}
             });
             fb2.push().setValue(("value"));
             fb2.push().setValue(16.0);
