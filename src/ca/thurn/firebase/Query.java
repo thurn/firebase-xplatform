@@ -25,7 +25,7 @@ public class Query {
     };
     var removedCallback = function(snapshot) {
       var javaSnapshot = @ca.thurn.firebase.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(snapshot);
-      listener.@ca.thurn.firebase.ChildEventListener::onChildRemoved(Lca/thurn/firebase/DataSnapshot;)(snapshot);
+      listener.@ca.thurn.firebase.ChildEventListener::onChildRemoved(Lca/thurn/firebase/DataSnapshot;)(javaSnapshot);
     };
     var movedCallback = function(snapshot, previous) {
       var javaSnapshot = @ca.thurn.firebase.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(snapshot);

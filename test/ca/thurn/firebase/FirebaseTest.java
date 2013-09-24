@@ -77,6 +77,26 @@ public class FirebaseTest extends GWTTestCase {
   Firebase firebase;
 
   @Override
+  protected void gwtSetUp() throws Exception {
+    delayTestFinish(10000);
+    if (firebase == null) {
+      ScriptInjector.fromUrl("https://cdn.firebase.com/v0/firebase.js")
+          .setCallback(new Callback<Void, Exception>() {
+            @Override
+            public void onFailure(Exception reason) {}
+
+            @Override
+            public void onSuccess(Void result) {
+              firebase = new Firebase("https://www.example.com/foo");
+              finishTest();
+            }
+          }).inject();
+    } else {
+      finishTest();
+    }
+  }
+
+  @Override
   public String getModuleName() {
     return "ca.thurn.Firebase";
   }
@@ -335,22 +355,25 @@ public class FirebaseTest extends GWTTestCase {
     child.updateChildren(update);
   }
 
-  public void xtestRemoveChild() {
+  public void testAddRemoveChild() {
     delayTestFinish(5000);
-    final Firebase child = firebase.child(randomName());
-    child.setValue("xa");
-    firebase.addChildEventListener(new TestChildEventListener() {
+    final Firebase fb = firebase.child(randomName());
+    final Firebase child = fb.child("new");
+    fb.addChildEventListener(new TestChildEventListener() {
       @Override
       public void onChildAdded(DataSnapshot snapshot, String previousName) {
+        assertEquals(1234, snapshot.getValue());
+        assertNull(previousName);
         child.removeValue();
       }
 
       @Override
       public void onChildRemoved(DataSnapshot snapshot) {
-        System.out.println("removed");
+        assertEquals(1234, snapshot.getValue());
         finishTest();
       }
     });
+    child.setValue(1234);
   }
 
   private String randomName() {
@@ -392,25 +415,4 @@ public class FirebaseTest extends GWTTestCase {
       child.setValue(object, priority);
     }
   }
-
-  @Override
-  protected void gwtSetUp() throws Exception {
-    delayTestFinish(10000);
-    if (firebase == null) {
-      ScriptInjector.fromUrl("https://cdn.firebase.com/v0/firebase.js")
-          .setCallback(new Callback<Void, Exception>() {
-            @Override
-            public void onFailure(Exception reason) {}
-
-            @Override
-            public void onSuccess(Void result) {
-              firebase = new Firebase("https://www.example.com/foo");
-              finishTest();
-            }
-          }).inject();
-    } else {
-      finishTest();
-    }
-  }
-
 }
