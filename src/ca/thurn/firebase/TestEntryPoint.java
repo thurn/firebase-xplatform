@@ -54,43 +54,45 @@ class TestEntryPoint implements EntryPoint {
 //            fb2.push().setValue(("value"));
 //            fb2.push().setValue(16.0);
 //
-            final Firebase c = fb.child("child");
-            fb.addChildEventListener(new ChildEventListener() {
+              final Firebase child = fb.child("new");
+              final Firebase one = child.child("one");
+              one.setValue(111, 111);
+              child.child("two").setValue(222, 222);
+              child.addChildEventListener(new ChildEventListener() {
 
-              @Override
-              public void onCancelled() {
-                // TODO Auto-generated method stub
+                @Override
+                public void onChildRemoved(DataSnapshot snapshot) {
+                  // TODO Auto-generated method stub
 
-              }
+                }
 
-              @Override
-              public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-                System.out.println("child added");
-              }
+                @Override
+                public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+                  // TODO Auto-generated method stub
 
-              @Override
-              public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-                // TODO Auto-generated method stub
+                }
 
-              }
+                @Override
+                public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+                  one.setPriority(333);
+                }
 
-              @Override
-              public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-                // TODO Auto-generated method stub
+                @Override
+                public void onCancelled() {
+                  // TODO Auto-generated method stub
 
-              }
+                }
+                @Override
+                public void onChildMoved(DataSnapshot snapshot, String prevChild) {
+                  System.out.println("MOVED");
+                }
+              });
 
-              @Override
-              public void onChildRemoved(DataSnapshot snapshot) {
-                System.out.println("child removed");
-              }
-            });
 
-            c.setValue("value");
             (new Timer() {
               @Override
               public void run() {
-                c.removeValue();
+                //
               }
             }).schedule(2000);
 

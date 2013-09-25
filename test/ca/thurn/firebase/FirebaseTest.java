@@ -22,22 +22,18 @@ public class FirebaseTest extends GWTTestCase {
 
     @Override
     public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-      fail("unexpected add");
     }
 
     @Override
     public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-      fail("unexpected change");
     }
 
     @Override
     public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-      fail("unexpected move");
     }
 
     @Override
     public void onChildRemoved(DataSnapshot snapshot) {
-      fail("unexpected remove");
     }
 
   }
@@ -99,20 +95,6 @@ public class FirebaseTest extends GWTTestCase {
   @Override
   public String getModuleName() {
     return "ca.thurn.Firebase";
-  }
-
-  public void testAddChild() {
-    delayTestFinish(5000);
-    Firebase child = firebase.child(randomName());
-    firebase.addChildEventListener(new TestChildEventListener() {
-      @Override
-      public void onChildAdded(DataSnapshot snapshot, String previousName) {
-        assertEquals("va", snapshot.getValue());
-        assertNull(previousName);
-        finishTest();
-      }
-    });
-    child.setValue("va");
   }
 
   public void testChild() {
@@ -355,6 +337,20 @@ public class FirebaseTest extends GWTTestCase {
     child.updateChildren(update);
   }
 
+  public void testAddChild() {
+    delayTestFinish(5000);
+    Firebase child = firebase.child(randomName());
+    firebase.addChildEventListener(new TestChildEventListener() {
+      @Override
+      public void onChildAdded(DataSnapshot snapshot, String previousName) {
+        assertEquals("va", snapshot.getValue());
+        assertNull(previousName);
+        finishTest();
+      }
+    });
+    child.setValue("va");
+  }
+
   public void testAddRemoveChild() {
     delayTestFinish(5000);
     final Firebase fb = firebase.child(randomName());
@@ -374,6 +370,44 @@ public class FirebaseTest extends GWTTestCase {
       }
     });
     child.setValue(1234);
+  }
+
+  public void testChangeChild() {
+    delayTestFinish(5000);
+    final Firebase fb = firebase.child(randomName());
+    final Firebase child = fb.child("new");
+    fb.addChildEventListener(new TestChildEventListener() {
+      @Override
+      public void onChildChanged(DataSnapshot snapshot, String prevChild) {
+        assertEquals(4321, snapshot.getValue());
+        finishTest();
+      }
+    });
+    child.setValue(1234);
+    child.setValue(4321);
+  }
+
+  public void testMoveChild() {
+    delayTestFinish(5000);
+    final Firebase fb = firebase.child(randomName());
+    final Firebase child = fb.child("new");
+    final Firebase one = child.child("one");
+    child.addChildEventListener(new TestChildEventListener() {
+      @Override
+      public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+        one.setPriority(333);
+      }
+      @Override
+      public void onChildMoved(DataSnapshot snapshot, String prevChild) {
+        assertEquals(111, snapshot.getValue());
+        assertEquals("zero", prevChild);
+        finishTest();
+      }
+    });
+    child.child("zero").setValue(9, 9);
+    one.setValue(111, 111);
+    child.child("two").setValue(222, 222);
+    child.child("three").setValue(444, 444);
   }
 
   private String randomName() {

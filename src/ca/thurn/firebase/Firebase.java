@@ -258,15 +258,36 @@ public class Firebase extends Query {
     firebase.transaction(updateFunction, completionFunction, fireLocalEvents);
   }-*/;
 
-  public native void setPriority(Object priority) /*-{
+  public void setPriority(Object priority) {
+    setPriority(priority, null);
+  }
+
+  public void setPriority(Object priority, Firebase.CompletionListener listener) {
+    if (priority == null || priority instanceof String) {
+      setPriorityString((String)priority, listener);
+    } else if (priority instanceof Double || priority instanceof Integer) {
+      setPriorityDouble(((Number)priority).doubleValue(), listener);
+    }
+  }
+
+  public native void setPriorityDouble(double priority, Firebase.CompletionListener listener) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.setPriority(priority);
+    if (listener) {
+      var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+      firebase.setPriority(priority, onComplete);
+    } else {
+      firebase.setPriority(priority);
+    }
   }-*/;
 
-  public native void setPriority(Object priority, Firebase.CompletionListener listener) /*-{
+  public native void setPriorityString(String priority, Firebase.CompletionListener listener) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
-    firebase.setPriority(priority, onComplete);
+    if (listener) {
+      var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+      firebase.setPriority(priority, onComplete);
+    } else {
+      firebase.setPriority(priority);
+    }
   }-*/;
 
   public void setValue(Object value) {
@@ -287,12 +308,12 @@ public class Firebase extends Query {
         throw new IllegalArgumentException("Cannot set a priority on a value of null.");
       }
       setValueNull(listener);
-    } else if (priority instanceof Double) {
-      setDoublePriority(value, (Double) priority, listener);
+    } else if (priority instanceof Double || priority instanceof Integer) {
+      setDoublePriority(value, ((Number)priority).doubleValue(), listener);
     } else if (priority == null || priority instanceof String) {
       setStringPriority(value, (String) priority, listener);
     } else {
-      throw new IllegalArgumentException("Priority must be a double or string");
+      throw new IllegalArgumentException("Priority must be a double, integer, or string");
     }
   }
 
