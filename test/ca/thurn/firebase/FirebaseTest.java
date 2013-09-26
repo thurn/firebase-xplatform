@@ -455,7 +455,27 @@ public class FirebaseTest extends GWTTestCase {
   }
 
   public void testSingleValueEventListener() {
-
+    delayTestFinish(5000);
+    final Firebase child = firebase.child(randomName());
+    final int[] numChanges = {0};
+    child.addListenerForSingleValueEvent(new TestValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot snapshot) {
+        numChanges[0]++;
+        if (numChanges[0] > 1) {
+          fail("Too many calls to onDataChange");
+        }
+        child.setValue(randomName());
+      }
+    });
+    child.setValue(randomName());
+    (new Timer(){
+      @Override
+      public void run() {
+        if (numChanges[0] == 1) {
+          finishTest();
+        }
+      }}).schedule(4000);
   }
 
   private String randomName() {
