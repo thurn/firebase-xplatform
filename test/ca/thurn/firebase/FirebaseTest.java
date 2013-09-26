@@ -10,6 +10,7 @@ import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.Timer;
 
 public class FirebaseTest extends GWTTestCase {
 
@@ -326,7 +327,6 @@ public class FirebaseTest extends GWTTestCase {
     alpha.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
-        System.out.println("onDataChange");
         assertEquals("fred", snapshot.getValue());
         finishTest();
       }
@@ -408,6 +408,54 @@ public class FirebaseTest extends GWTTestCase {
     one.setValue(111, 111);
     child.child("two").setValue(222, 222);
     child.child("three").setValue(444, 444);
+  }
+
+  public void testRemoveChildListener() {
+    delayTestFinish(5000);
+    Firebase child = firebase.child(randomName());
+    final boolean[] failed = {false};
+    ChildEventListener listener = firebase.addChildEventListener(new TestChildEventListener() {
+      @Override
+      public void onChildAdded(DataSnapshot snapshot, String previousName) {
+        failed[0] = true;
+        fail("Unexpected call to onChildAdded");
+      }
+    });
+    firebase.removeEventListener(listener);
+    (new Timer(){
+      @Override
+      public void run() {
+        if (failed[0] == false) {
+          finishTest();
+        }
+      }}).schedule(4000);
+    child.setValue("va");
+  }
+
+  public void testRemoveValueListener() {
+    delayTestFinish(5000);
+    Firebase child = firebase.child(randomName());
+    final boolean[] failed = {false};
+     ValueEventListener listener = firebase.addValueEventListener(new TestValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot snapshot) {
+        failed[0] = true;
+        fail("Unexpected call to onChildAdded");
+      }
+    });
+    firebase.removeEventListener(listener);
+    (new Timer(){
+      @Override
+      public void run() {
+        if (failed[0] == false) {
+          finishTest();
+        }
+      }}).schedule(4000);
+    child.setValue("va");
+  }
+
+  public void testSingleValueEventListener() {
+
   }
 
   private String randomName() {
