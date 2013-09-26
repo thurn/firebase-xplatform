@@ -111,8 +111,8 @@ public class FirebaseTest extends GWTTestCase {
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
-        Integer value = snapshot.getValue(Integer.class);
-        assertEquals(new Integer(123), value);
+        Long value = snapshot.getValue(Long.class);
+        assertEquals(new Long(123), value);
         finishTest();
       }
     });
@@ -207,14 +207,14 @@ public class FirebaseTest extends GWTTestCase {
     runTestSet(42);
   }
 
-  public void testSetIntegerList() {
-    List<Integer> list = new ArrayList<Integer>();
+  public void testSetLongList() {
+    List<Long> list = new ArrayList<Long>();
     list.add(123);
     runTestSet(list);
   }
 
-  public void testSetIntegerMap() {
-    Map<String, Integer> map = new HashMap<String, Integer>();
+  public void testSetLongMap() {
+    Map<String, Long> map = new HashMap<String, Long>();
     map.put("123", 123);
     runTestSet(map);
   }
@@ -328,6 +328,13 @@ public class FirebaseTest extends GWTTestCase {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
         assertEquals("fred", snapshot.getValue());
+      }
+    });
+    Firebase beta = child.child("beta");
+    beta.addListenerForSingleValueEvent(new TestValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot snapshot) {
+        assertEquals(2, snapshot.getValue());
         finishTest();
       }
     });

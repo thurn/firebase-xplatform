@@ -15,7 +15,7 @@ import com.google.gwt.json.client.JSONValue;
 /**
  * General notes on using this library:
  * 1) Most methods on MutableData are not supported.
- * 2) Doubles with no fractional part will be returned as Integers. You'll need
+ * 2) Doubles with no fractional part will be returned as Longs. You'll need
  *    to explicitly convert all doubles back to their correct type.
  * 3) Null values inside maps and lists are not supported, as they can lead to
  *    confusing semantics (such as nulls at the end of a list getting dropped).
@@ -140,8 +140,8 @@ public class Firebase extends Query {
     } else if (object instanceof CharSequence) {
       return new JSONString(object.toString());
     } else if (object instanceof Number) {
-      if (!(object instanceof Double || object instanceof Integer)) {
-        throw new IllegalArgumentException("Only numbers of type Double or Integer "
+      if (!(object instanceof Double || object instanceof Long)) {
+        throw new IllegalArgumentException("Only numbers of type Double or Long "
             + "are allowed.");
       }
       return new JSONNumber(((Number) object).doubleValue());
@@ -265,7 +265,7 @@ public class Firebase extends Query {
   public void setPriority(Object priority, Firebase.CompletionListener listener) {
     if (priority == null || priority instanceof String) {
       setPriorityString((String)priority, listener);
-    } else if (priority instanceof Double || priority instanceof Integer) {
+    } else if (priority instanceof Double || priority instanceof Long) {
       setPriorityDouble(((Number)priority).doubleValue(), listener);
     }
   }
@@ -308,7 +308,7 @@ public class Firebase extends Query {
         throw new IllegalArgumentException("Cannot set a priority on a value of null.");
       }
       setValueNull(listener);
-    } else if (priority instanceof Double || priority instanceof Integer) {
+    } else if (priority instanceof Double || priority instanceof Long) {
       setDoublePriority(value, ((Number)priority).doubleValue(), listener);
     } else if (priority == null || priority instanceof String) {
       setStringPriority(value, (String) priority, listener);
@@ -361,8 +361,8 @@ public class Firebase extends Query {
     if (value instanceof CharSequence) {
       setValueStringDouble(value.toString(), priority, listener);
     } else if (value instanceof Number) {
-      if (!(value instanceof Double || value instanceof Integer)) {
-        throw new IllegalArgumentException("Only numbers of type Double or Integer can "
+      if (!(value instanceof Double || value instanceof Long)) {
+        throw new IllegalArgumentException("Only numbers of type Double or Long can "
             + "be passed to setValue()");
       }
       setValueDoubleDouble(((Number) value).doubleValue(), priority, listener);
@@ -385,8 +385,8 @@ public class Firebase extends Query {
     if (value instanceof CharSequence) {
       setValueStringString(value.toString(), priority, listener);
     } else if (value instanceof Number) {
-      if (!(value instanceof Double || value instanceof Integer)) {
-        throw new IllegalArgumentException("Only numbers of type Double or Integer can "
+      if (!(value instanceof Double || value instanceof Long)) {
+        throw new IllegalArgumentException("Only numbers of type Double or Long can "
             + "be passed to setValue()");
       }
       setValueDoubleString(((Number) value).doubleValue(), priority, listener);
