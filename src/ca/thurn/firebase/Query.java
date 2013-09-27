@@ -68,43 +68,43 @@ public class Query {
 
   public native Query endAt() /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.endAt();
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.endAt();
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query endAt(double priority) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.endAt(priority);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.endAt(priority);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query endAt(double priority, String name) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.endAt(priority, name);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.endAt(priority, name);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query endAt(String priority) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.endAt(priority);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.endAt(priority);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query endAt(String priority, String name) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.endAt(priority, name);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.endAt(priority, name);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Firebase getRef() /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    return firebase;
+    return @ca.thurn.firebase.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase.ref());
   }-*/;
 
   public native Query limit(int limit) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.limit(limit);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.limit(limit);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public void removeEventListener(ChildEventListener listener) {
@@ -128,32 +128,32 @@ public class Query {
 
   public native Query startAt() /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.startAt();
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.startAt();
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query startAt(double priority) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.startAt(priority);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.startAt(priority);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query startAt(double priority, String name) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.startAt(priority, name);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.startAt(priority, name);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query startAt(String priority) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.startAt(priority);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.startAt(priority);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Query startAt(String priority, String name) /*-{
     var firebase = this.@ca.thurn.firebase.Query::firebase;
-    firebase.startAt(priority, name);
-    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(firebase);
+    var result = firebase.startAt(priority, name);
+    return @ca.thurn.firebase.Query::wrapQuery(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   private native void removeChildEventListener(JavaScriptObject addedCallback,

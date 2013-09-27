@@ -116,7 +116,7 @@ public class FirebaseTest extends GWTTestCase {
         finishTest();
       }
     });
-    child.setValue(123);
+    child.setValue(123L);
   }
 
   public void testGetGenericTypeIndicator() {
@@ -204,18 +204,18 @@ public class FirebaseTest extends GWTTestCase {
   }
 
   public void testSetInt() {
-    runTestSet(42);
+    runTestSet(42L);
   }
 
   public void testSetLongList() {
     List<Long> list = new ArrayList<Long>();
-    list.add(123);
+    list.add(123L);
     runTestSet(list);
   }
 
   public void testSetLongMap() {
     Map<String, Long> map = new HashMap<String, Long>();
-    map.put("123", 123);
+    map.put("123", 123L);
     runTestSet(map);
   }
 
@@ -236,10 +236,10 @@ public class FirebaseTest extends GWTTestCase {
     runTestSet(map);
   }
 
-  public void testSetLongException() {
+  public void testSetIntException() {
     try {
-      runTestSet(123L);
-      fail("Expected exception setting long");
+      runTestSet(123);
+      fail("Expected exception setting integer");
     } catch (IllegalArgumentException expected) {
       finishTest();
     }
@@ -265,7 +265,7 @@ public class FirebaseTest extends GWTTestCase {
   public void testSetMixedList() {
     List<Object> list = new ArrayList<Object>();
     list.add("one");
-    list.add(21);
+    list.add(21L);
     list.add(true);
     runTestSet(list);
   }
@@ -273,7 +273,7 @@ public class FirebaseTest extends GWTTestCase {
   public void testSetMixedMap() {
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("one", true);
-    map.put("two", 3);
+    map.put("two", 3L);
     map.put("three", "four");
     runTestSet(map);
   }
@@ -291,7 +291,7 @@ public class FirebaseTest extends GWTTestCase {
   public void testSetNestedMaps() {
     Map<String, Object> map = new HashMap<String, Object>();
     Map<String, Object> one = new HashMap<String, Object>();
-    one.put("one", 1);
+    one.put("one", 1L);
     Map<String, Object> two = new HashMap<String, Object>();
     two.put("two", "two");
     map.put("one", one);
@@ -334,13 +334,13 @@ public class FirebaseTest extends GWTTestCase {
     beta.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
-        assertEquals(2, snapshot.getValue());
+        assertEquals(2L, snapshot.getValue());
         finishTest();
       }
     });
     Map<String, Object> update = new HashMap<String, Object>();
     update.put("alpha", "fred");
-    update.put("beta", 2);
+    update.put("beta", 2L);
     child.updateChildren(update);
   }
 
@@ -365,18 +365,18 @@ public class FirebaseTest extends GWTTestCase {
     fb.addChildEventListener(new TestChildEventListener() {
       @Override
       public void onChildAdded(DataSnapshot snapshot, String previousName) {
-        assertEquals(1234, snapshot.getValue());
+        assertEquals(1234L, snapshot.getValue());
         assertNull(previousName);
         child.removeValue();
       }
 
       @Override
       public void onChildRemoved(DataSnapshot snapshot) {
-        assertEquals(1234, snapshot.getValue());
+        assertEquals(1234L, snapshot.getValue());
         finishTest();
       }
     });
-    child.setValue(1234);
+    child.setValue(1234L);
   }
 
   public void testChangeChild() {
@@ -386,12 +386,12 @@ public class FirebaseTest extends GWTTestCase {
     fb.addChildEventListener(new TestChildEventListener() {
       @Override
       public void onChildChanged(DataSnapshot snapshot, String prevChild) {
-        assertEquals(4321, snapshot.getValue());
+        assertEquals(4321L, snapshot.getValue());
         finishTest();
       }
     });
-    child.setValue(1234);
-    child.setValue(4321);
+    child.setValue(1234L);
+    child.setValue(4321L);
   }
 
   public void testMoveChild() {
@@ -402,19 +402,19 @@ public class FirebaseTest extends GWTTestCase {
     child.addChildEventListener(new TestChildEventListener() {
       @Override
       public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-        one.setPriority(333);
+        one.setPriority(333L);
       }
       @Override
       public void onChildMoved(DataSnapshot snapshot, String prevChild) {
-        assertEquals(111, snapshot.getValue());
+        assertEquals(111L, snapshot.getValue());
         assertEquals("zero", prevChild);
         finishTest();
       }
     });
-    child.child("zero").setValue(9, 9);
-    one.setValue(111, 111);
-    child.child("two").setValue(222, 222);
-    child.child("three").setValue(444, 444);
+    child.child("zero").setValue(9L, 9L);
+    one.setValue(111L, 111L);
+    child.child("two").setValue(222L, 222L);
+    child.child("three").setValue(444L, 444L);
   }
 
   public void testRemoveChildListener() {
@@ -483,6 +483,72 @@ public class FirebaseTest extends GWTTestCase {
           finishTest();
         }
       }}).schedule(4000);
+  }
+//
+//  public void testTransaction() {
+//    delayTestFinish(5000);
+//    final Firebase child = firebase.child(randomName());
+//    child.setValue(123L);
+//    new Timer(){
+//      @Override
+//      public void run() {
+//        child.runTransaction(new Transaction.Handler(){
+//          @Override
+//          public Result doTransaction(MutableData currentData) {
+//            assertEquals(123L, currentData.getValue());
+//            currentData.setValue(456L);
+//            return Transaction.success(currentData);
+//          }
+//          @Override
+//          public void onComplete(FirebaseError error, boolean committed, DataSnapshot currentData) {
+//            assertNull(error);
+//            assertTrue(committed);
+//            assertEquals(456L, currentData.getValue());
+//            finishTest();
+//          }});
+//      }}.schedule(2500);
+//  }
+
+  public void testStartAt() {
+    delayTestFinish(5000);
+    Firebase child = firebase.child(randomName());
+    Query limited = child.startAt(15.0);
+    runQueryLimitingTest(2, limited);
+  }
+
+  public void testEndAt() {
+    delayTestFinish(5000);
+    Firebase child = firebase.child(randomName());
+    Query limited = child.endAt(15.0);
+    runQueryLimitingTest(3, limited);
+  }
+
+  public void testStartEndAt() {
+    delayTestFinish(5000);
+    Firebase child = firebase.child(randomName());
+    Query limited = child.startAt(15.0).endAt(15.0);
+    runQueryLimitingTest(1, limited);
+  }
+
+  private void runQueryLimitingTest(final int expected, Query limited) {
+    Firebase base = limited.getRef();
+    final int[] addedCount = {0};
+    limited.addChildEventListener(new TestChildEventListener(){
+      @Override
+      public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        addedCount[0]++;
+      }
+    });
+    base.child("one").setValue("one", 5.0);
+    base.child("two").setValue("two", 10.0);
+    base.child("three").setValue("three", 15.0);
+    base.child("four").setValue("four", 20.0);
+    new Timer(){
+      @Override
+      public void run() {
+        assertEquals(expected, addedCount[0]);
+        finishTest();
+      }}.schedule(4000);
   }
 
   private String randomName() {

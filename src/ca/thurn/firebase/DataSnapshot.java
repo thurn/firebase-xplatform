@@ -31,8 +31,8 @@ public class DataSnapshot {
   }
 
   private static Object fromJavaScriptNumber(double number) {
-    if (number == (int) number) {
-      return (int) number;
+    if (number == (long) number) {
+      return (long) number;
     } else {
       return number;
     }

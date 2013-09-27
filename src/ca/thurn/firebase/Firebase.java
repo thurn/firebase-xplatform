@@ -53,7 +53,6 @@ public class Firebase extends Query {
   private static native JavaScriptObject createFirebase(String url) /*-{
     var result = new Firebase(url);
     return result;
-
   }-*/;
 
   private static Object toJavaScript(Object object) {
