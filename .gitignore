@@ -11,4 +11,4 @@ gwt-unitCache/
 www-test/
 war/firebase/.junit_symbolMaps/
 test-classes/
-war/WEB-INF/classes/.gitignore
+war/WEB-INF/classes/

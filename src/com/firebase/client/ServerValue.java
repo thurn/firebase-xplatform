@@ -1,4 +1,4 @@
-package ca.thurn.firebase;
+package com.firebase.client;
 
 public class ServerValue {
 

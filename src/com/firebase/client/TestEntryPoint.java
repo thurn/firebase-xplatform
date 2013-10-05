@@ -1,4 +1,4 @@
-package ca.thurn.firebase;
+package com.firebase.client;
 
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;

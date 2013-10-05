@@ -1,4 +1,4 @@
-package ca.thurn.firebase;
+package com.firebase.client;
 
 import java.util.List;
 import java.util.Map;
@@ -111,8 +111,8 @@ public class Firebase extends Query {
    */
   static native JavaScriptObject onComplete(CompletionListener listener) /*-{
     return function(error) {
-      var firebaseError = @ca.thurn.firebase.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
-      listener.@ca.thurn.firebase.Firebase.CompletionListener::onComplete(Lca/thurn/firebase/FirebaseError;)(firebaseError);
+      var firebaseError = @com.firebase.client.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
+      listener.@com.firebase.client.Firebase.CompletionListener::onComplete(Lcom/firebase/client/FirebaseError;)(firebaseError);
     };
   }-*/;
 
@@ -179,61 +179,61 @@ public class Firebase extends Query {
   }
 
   public native void auth(String credential, AuthListener listener) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     var onComplete = function(error, payload) {
       if (error == null) {
-        listener.@ca.thurn.firebase.Firebase.AuthListener::onAuthSuccess(Ljava/lang/Object;)(payload);
+        listener.@com.firebase.client.Firebase.AuthListener::onAuthSuccess(Ljava/lang/Object;)(payload);
       } else {
-        var firebaseError = @ca.thurn.firebase.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
-        listener.@ca.thurn.firebase.Firebase.AuthListener::onAuthError(Lca/thurn/firebase/FirebaseError;)(firebaseError);
+        var firebaseError = @com.firebase.client.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
+        listener.@com.firebase.client.Firebase.AuthListener::onAuthError(Lcom/firebase/client/FirebaseError;)(firebaseError);
       }
     };
     firebase.auth(credential, onComplete, onAuthError);
   }-*/;
 
   public native Firebase child(String pathString) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     var result = firebase.child(pathString);
-    return @ca.thurn.firebase.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
+    return @com.firebase.client.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native String getName() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     return firebase.name();
   }-*/;
 
   public native Firebase getParent() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     var result = firebase.parent();
-    return @ca.thurn.firebase.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
+    return @com.firebase.client.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Firebase getRoot() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     var result = firebase.root();
-    return @ca.thurn.firebase.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
+    return @com.firebase.client.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native OnDisconnect onDisconnect() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     var result = firebase.onDisconnect();
-    return @ca.thurn.firebase.OnDisconnect::wrapOnDisconnect(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
+    return @com.firebase.client.OnDisconnect::wrapOnDisconnect(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Firebase push() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     var result = firebase.push();
-    return @ca.thurn.firebase.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
+    return @com.firebase.client.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native void removeValue() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     firebase.remove();
   }-*/;
 
   public native void removeValue(Firebase.CompletionListener listener) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
-    var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+    var firebase = this.@com.firebase.client.Query::firebase;
+    var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
     firebase.remove(onComplete);
   }-*/;
 
@@ -242,17 +242,17 @@ public class Firebase extends Query {
   }
 
   public native void runTransaction(Transaction.Handler handler, boolean fireLocalEvents) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     var updateFunction = function(currentData) {
-      var mutableData = @ca.thurn.firebase.MutableData::wrapData(Lcom/google/gwt/core/client/JavaScriptObject;)(currentData);
-      var result = handler.@ca.thurn.firebase.Transaction.Handler::doTransaction(Lca/thurn/firebase/MutableData;)(mutableData);
-      var jsResult = @ca.thurn.firebase.Transaction.Result::getResultData(Lca/thurn/firebase/Transaction$Result;)(result);
+      var mutableData = @com.firebase.client.MutableData::wrapData(Lcom/google/gwt/core/client/JavaScriptObject;)(currentData);
+      var result = handler.@com.firebase.client.Transaction.Handler::doTransaction(Lcom/firebase/client/MutableData;)(mutableData);
+      var jsResult = @com.firebase.client.Transaction.Result::getResultData(Lcom/firebase/client/Transaction$Result;)(result);
       return jsResult;
     };
     var completionFunction = function(error, wasCommitted, snapshot) {
-      var firebaseError = @ca.thurn.firebase.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
-      var dataSnapshot = @ca.thurn.firebase.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(snapshot);
-      handler.@ca.thurn.firebase.Transaction.Handler::onComplete(Lca/thurn/firebase/FirebaseError;ZLca/thurn/firebase/DataSnapshot;)(firebaseError, wasCommitted, dataSnapshot);
+      var firebaseError = @com.firebase.client.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
+      var dataSnapshot = @com.firebase.client.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(snapshot);
+      handler.@com.firebase.client.Transaction.Handler::onComplete(Lcom/firebase/client/FirebaseError;ZLcom/firebase/client/DataSnapshot;)(firebaseError, wasCommitted, dataSnapshot);
     };
     firebase.transaction(updateFunction, completionFunction, fireLocalEvents);
   }-*/;
@@ -270,9 +270,9 @@ public class Firebase extends Query {
   }
 
   public native void setPriorityDouble(double priority, Firebase.CompletionListener listener) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     if (listener) {
-      var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+      var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
       firebase.setPriority(priority, onComplete);
     } else {
       firebase.setPriority(priority);
@@ -280,9 +280,9 @@ public class Firebase extends Query {
   }-*/;
 
   public native void setPriorityString(String priority, Firebase.CompletionListener listener) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     if (listener) {
-      var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+      var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
       firebase.setPriority(priority, onComplete);
     } else {
       firebase.setPriority(priority);
@@ -318,12 +318,12 @@ public class Firebase extends Query {
 
   @Override
   public native String toString() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     return firebase.toString();
   }-*/;
 
   public native void unauth() /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     firebase.unauth();
   }-*/;
 
@@ -337,19 +337,19 @@ public class Firebase extends Query {
 
   private native JavaScriptObject getSetValueFn() /*-{
     return function(value, priority, listener) {
-      var firebase = this.@ca.thurn.firebase.Query::firebase;
+      var firebase = this.@com.firebase.client.Query::firebase;
       if (priority == null) {
         if (listener == null) {
           firebase.set(value);
         } else {
-          var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+          var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
           firebase.set(value, onComplete);
         }
       } else {
         if (listener == null) {
           firebase.setWithPriority(value, priority);
         } else {
-          var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+          var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
           firebase.setWithPriority(value, priority, onComplete);
         }
       }
@@ -406,73 +406,73 @@ public class Firebase extends Query {
 
   private native void setValueBooleanDouble(boolean value, double priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void setValueBooleanString(boolean value, String priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void setValueDoubleDouble(double value, double priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void setValueDoubleString(double value, String priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void setValueNull(CompletionListener listener) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
+    var firebase = this.@com.firebase.client.Query::firebase;
     if (listener == null) {
       firebase.set(null);
     } else {
-      var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+      var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
       firebase.set(null, onComplete);
     }
   }-*/;
 
   private native void setValueObjectDouble(JavaScriptObject value, double priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void setValueObjectString(JavaScriptObject value, String priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void setValueStringDouble(String value, double priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void setValueStringString(String value, String priority,
       CompletionListener listener) /*-{
-    this.@ca.thurn.firebase.Firebase::getSetValueFn()().call(this, value,
+    this.@com.firebase.client.Firebase::getSetValueFn()().call(this, value,
         priority, listener);
   }-*/;
 
   private native void updateChildrenRaw(@SuppressWarnings("rawtypes") Map children) /*-{
-    var firebase = this.@ca.thurn.firebase.Query::firebase;
-    var object = @ca.thurn.firebase.Firebase::adaptMap(Ljava/util/Map;)(children);
+    var firebase = this.@com.firebase.client.Query::firebase;
+    var object = @com.firebase.client.Firebase::adaptMap(Ljava/util/Map;)(children);
     firebase.update(object);
   }-*/;
 
   private native void updateChildrenRaw(@SuppressWarnings("rawtypes") Map children,
       Firebase.CompletionListener listener) /*-{
-  	var firebase = this.@ca.thurn.firebase.Query::firebase;
-	var object = @ca.thurn.firebase.Firebase::adaptMap(Ljava/util/Map;)(children);
-	var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+  	var firebase = this.@com.firebase.client.Query::firebase;
+	var object = @com.firebase.client.Firebase::adaptMap(Ljava/util/Map;)(children);
+	var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
     firebase.update(object, onComplete);
   }-*/;
 }

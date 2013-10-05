@@ -1,4 +1,4 @@
-package ca.thurn.firebase;
+package com.firebase.client;
 
 import java.util.Map;
 
@@ -16,46 +16,46 @@ public class OnDisconnect {
   }
 
   public native void cancel() /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
 		onDisconnect.cancel();
   }-*/;
 
   public native void cancel(Firebase.CompletionListener listener) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
-		var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
+		var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
 		onDisconnect.cancel(onComplete);
   }-*/;
 
   public native void removeValue() /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
 		onDisconnect.remove();
   }-*/;
 
   public native void removeValue(Firebase.CompletionListener listener) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
-		var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
+		var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
 		onDisconnect.remove(onComplete);
   }-*/;
 
   public native void setValue(Object value) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
 		onDisconnect.set(value);
   }-*/;
 
   public native void setValue(Object value, double priority) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
 		onDisconnect.setWithPriority(value, priority);
   }-*/;
 
   public native void setValue(Object value, double priority, Firebase.CompletionListener listener) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
-		var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
+		var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
 		onDisconnect.setWithPriority(value, priority, onComplete);
   }-*/;
 
   public native void setValue(Object value, Firebase.CompletionListener listener) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
-		var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
+		var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
 		onDisconnect.set(value, onComplete);
   }-*/;
 
@@ -66,27 +66,27 @@ public class OnDisconnect {
   }
 
   public native void setValue(Object value, String priority) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
 		onDisconnect.setWithPriority(value, priority);
   }-*/;
 
   public native void setValue(Object value, String priority, Firebase.CompletionListener listener) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
-		var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
+		var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
 		onDisconnect.setWithPriority(value, priority, onComplete);
   }-*/;
 
   public native void updateChildren(Map<String, Object> children) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
-		var map = @ca.thurn.firebase.Firebase::adaptMap(Ljava/util/Map;)(children);
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
+		var map = @com.firebase.client.Firebase::adaptMap(Ljava/util/Map;)(children);
 		onDisconnect.update(map);
   }-*/;
 
   public native void updateChildren(Map<String, Object> children,
       Firebase.CompletionListener listener) /*-{
-		var onDisconnect = this.@ca.thurn.firebase.OnDisconnect::onDisconnect;
-		var onComplete = @ca.thurn.firebase.Firebase::onComplete(Lca/thurn/firebase/Firebase$CompletionListener;)(listener);
-		var map = @ca.thurn.firebase.Firebase::adaptMap(Ljava/util/Map;)(children);
+		var onDisconnect = this.@com.firebase.client.OnDisconnect::onDisconnect;
+		var onComplete = @com.firebase.client.Firebase::onComplete(Lcom/firebase/client/Firebase$CompletionListener;)(listener);
+		var map = @com.firebase.client.Firebase::adaptMap(Ljava/util/Map;)(children);
 		onDisconnect.update(map, onComplete);
   }-*/;
 }

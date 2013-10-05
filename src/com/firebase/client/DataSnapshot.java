@@ -1,4 +1,4 @@
-package ca.thurn.firebase;
+package com.firebase.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,23 +108,23 @@ public class DataSnapshot {
   }
 
   private static native Object getJavaValue(JavaScriptObject jso) /*-{
-    return @ca.thurn.firebase.DataSnapshot::getJavaValueFn()()(jso);
+    return @com.firebase.client.DataSnapshot::getJavaValueFn()()(jso);
   }-*/;
 
   private static native JavaScriptObject getJavaValueFn() /*-{
     return function(val) {
       if (val === null) {
-        return @ca.thurn.firebase.DataSnapshot::fromJavaScriptNull()();
+        return @com.firebase.client.DataSnapshot::fromJavaScriptNull()();
       } else if (typeof val === "number") {
-        return @ca.thurn.firebase.DataSnapshot::fromJavaScriptNumber(D)(val);
+        return @com.firebase.client.DataSnapshot::fromJavaScriptNumber(D)(val);
       } else if (typeof val === "string") {
-        return @ca.thurn.firebase.DataSnapshot::fromJavaScriptString(Ljava/lang/String;)(val);
+        return @com.firebase.client.DataSnapshot::fromJavaScriptString(Ljava/lang/String;)(val);
       } else if (typeof val === "boolean") {
-        return @ca.thurn.firebase.DataSnapshot::fromJavaScriptBoolean(Z)(val);
+        return @com.firebase.client.DataSnapshot::fromJavaScriptBoolean(Z)(val);
       } else if (val.length != null) {
-        return @ca.thurn.firebase.DataSnapshot::fromJsArrayMixed(Lcom/google/gwt/core/client/JsArrayMixed;)(val);
+        return @com.firebase.client.DataSnapshot::fromJsArrayMixed(Lcom/google/gwt/core/client/JsArrayMixed;)(val);
       } else if (typeof val === "object") {
-        return @ca.thurn.firebase.DataSnapshot::fromJavaScriptObject(Lcom/google/gwt/core/client/JavaScriptObject;)(val);
+        return @com.firebase.client.DataSnapshot::fromJavaScriptObject(Lcom/google/gwt/core/client/JavaScriptObject;)(val);
       } else {
         throw new Error("Unable to get java value for " + val);
       }
@@ -150,19 +150,19 @@ public class DataSnapshot {
   }
 
   public native DataSnapshot child(String path) /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     var result = snapshot.child(path);
-    return @ca.thurn.firebase.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
+    return @com.firebase.client.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Iterable<DataSnapshot> getChildren() /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     var array = [];
     var childAction = function(child) {
       array.push(child);
     }
     snapshot.forEach(childAction);
-    return @ca.thurn.firebase.DataSnapshot::adaptArray(Lcom/google/gwt/core/client/JsArray;)(array);
+    return @com.firebase.client.DataSnapshot::adaptArray(Lcom/google/gwt/core/client/JsArray;)(array);
   }-*/;
 
   public long getChildrenCount() {
@@ -170,29 +170,29 @@ public class DataSnapshot {
   }
 
   public native String getName() /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     return snapshot.name();
   }-*/;
 
   public native Object getPriority() /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
-    return @ca.thurn.firebase.DataSnapshot::getJavaValueFn()()(snapshot.getPriority());
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
+    return @com.firebase.client.DataSnapshot::getJavaValueFn()()(snapshot.getPriority());
   }-*/;
 
   public native Firebase getRef() /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     var result = snapshot.ref();
-    return @ca.thurn.firebase.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
+    return @com.firebase.client.Firebase::wrapFirebase(Lcom/google/gwt/core/client/JavaScriptObject;)(result);
   }-*/;
 
   public native Object getValue() /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     var val = snapshot.val();
-    return @ca.thurn.firebase.DataSnapshot::getJavaValueFn()()(val);
+    return @com.firebase.client.DataSnapshot::getJavaValueFn()()(val);
   }-*/;
 
   public native Object getValue(boolean useExportFormat) /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     if (useExportFormat) {
       return snapshot.exportVal();
     } else {
@@ -211,17 +211,17 @@ public class DataSnapshot {
   }
 
   public native boolean hasChild(String path) /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     return snapshot.hasChild(path);
   }-*/;
 
   public native boolean hasChildren() /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     return snapshot.hasChildren();
   }-*/;
 
   private native int getChildrenCountInt() /*-{
-    var snapshot = this.@ca.thurn.firebase.DataSnapshot::snapshot;
+    var snapshot = this.@com.firebase.client.DataSnapshot::snapshot;
     return snapshot.numChildren();
   }-*/;
 }

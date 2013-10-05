@@ -1,4 +1,4 @@
-package ca.thurn.firebase;
+package com.firebase.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
@@ -39,7 +39,7 @@ public class MutableData {
   }
 
   public native Object getValue() /*-{
-		return this.@ca.thurn.firebase.MutableData::currentData;
+		return this.@com.firebase.client.MutableData::currentData;
   }-*/;
 
   public <T> T getValue(Class<T> valueType) {
@@ -63,7 +63,7 @@ public class MutableData {
   }
 
   public native void setValue(Object value) /*-{
-		this.@ca.thurn.firebase.MutableData::setNewData(Lcom/google/gwt/core/client/JavaScriptObject;)(value);
+		this.@com.firebase.client.MutableData::setNewData(Lcom/google/gwt/core/client/JavaScriptObject;)(value);
   }-*/;
 
   JavaScriptObject getNewData() {

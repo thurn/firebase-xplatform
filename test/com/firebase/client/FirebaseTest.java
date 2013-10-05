@@ -1,4 +1,4 @@
-package ca.thurn.firebase;
+package com.firebase.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.GenericTypeIndicator;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.ScriptInjector;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -95,7 +101,7 @@ public class FirebaseTest extends GWTTestCase {
 
   @Override
   public String getModuleName() {
-    return "ca.thurn.Firebase";
+    return "com.firebase.Firebase";
   }
 
   public void testChild() {
