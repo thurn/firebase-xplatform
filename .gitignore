@@ -1,6 +1,5 @@
 /build
 /classes
-*.jar
 *.class
 *~
 */web-app/gwt
