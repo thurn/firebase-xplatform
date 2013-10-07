@@ -149,18 +149,6 @@ public class FirebaseTest extends GWTTestCase {
     assertEquals("foo", firebase.getName());
   }
 
-  public void testNullMapException() {
-    Map<String, Object> map = new HashMap<String, Object>();
-    map.put("one", true);
-    map.put("two", null);
-    try {
-      runTestSet(map);
-      fail("Expected exception from null map value");
-    } catch (IllegalArgumentException expected) {
-      finishTest();
-    }
-  }
-
   public void testNullRootName() {
     Firebase firebase = new Firebase("http://www.example.com/foo");
     assertEquals(null, firebase.getParent().getName());
@@ -440,13 +428,14 @@ public class FirebaseTest extends GWTTestCase {
       }
     });
     firebase.removeEventListener(listener);
-    (new Timer(){
-      @Override
-      public void run() {
-        if (failed[0] == false) {
-          finishTest();
-        }
-      }}).schedule(4000);
+    schedule(4000, new Runnable() {
+	  @Override
+	  public void run() {
+	    if (failed[0] == false) {
+	      finishTest();
+		}
+      }
+    });
     child.setValue("va");
   }
 
@@ -463,13 +452,14 @@ public class FirebaseTest extends GWTTestCase {
       }
     });
     firebase.removeEventListener(listener);
-    (new Timer(){
-      @Override
-      public void run() {
+    schedule(4000, new Runnable() {
+	  @Override
+	  public void run() {
         if (failed[0] == false) {
           finishTest();
         }
-      }}).schedule(4000);
+      }
+    });
     child.setValue("va");
   }
 
@@ -488,13 +478,14 @@ public class FirebaseTest extends GWTTestCase {
       }
     });
     child.setValue(randomName());
-    (new Timer(){
-      @Override
-      public void run() {
-        if (numChanges[0] == 1) {
-          finishTest();
-        }
-      }}).schedule(4000);
+    schedule(4000, new Runnable() {
+	  @Override
+	  public void run() {
+	    if (numChanges[0] == 1) {
+	      finishTest();
+	    }
+      }
+    });
   }
 //
 //  public void testTransaction() {
@@ -605,12 +596,22 @@ public class FirebaseTest extends GWTTestCase {
       base.child("three").setValue("three", 15.0);
       base.child("four").setValue("four", 20.0);
     }
-    new Timer(){
-      @Override
-      public void run() {
-        assertEquals(expected, addedCount[0]);
-        finishTest();
-      }}.schedule(4000);
+    schedule(4000, new Runnable() {
+	  @Override
+	  public void run() {
+	    assertEquals(expected, addedCount[0]);
+	    finishTest();
+      }
+    });
+  }
+  
+  private void schedule(int delayMillis, final Runnable runnable) {
+	  (new Timer() {
+		@Override
+		public void run() {
+			runnable.run();
+		}
+	  }).schedule(delayMillis);
   }
 
   private String randomName() {

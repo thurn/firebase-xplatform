@@ -94,10 +94,10 @@ public class Firebase extends Query {
     JSONObject json = new JSONObject();
     for (Object key : map.keySet()) {
       if (map.get(key) == null) {
-        throw new IllegalArgumentException("Firebase does not work well with null values "
-            + "in maps.");
+        json.put(key.toString(), JSONNull.getInstance());
+      } else {
+    	  json.put(key.toString(), toJsonValue(map.get(key)));
       }
-      json.put(key.toString(), toJsonValue(map.get(key)));
     }
     return json.getJavaScriptObject();
   }
@@ -312,7 +312,7 @@ public class Firebase extends Query {
     } else if (priority == null || priority instanceof String) {
       setStringPriority(value, (String) priority, listener);
     } else {
-      throw new IllegalArgumentException("Priority must be a double, integer, or string");
+      throw new IllegalArgumentException("Priority must be a double, long, or string");
     }
   }
 

@@ -16,13 +16,13 @@ class JavascriptValueEventListener implements ValueEventListener {
 
   @Override
   public void onCancelled() {
-    throw new UnsupportedOperationException("You cannot re-use the listener you get back"
+    throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }
 
   @Override
   public void onDataChange(DataSnapshot snapshot) {
-    throw new UnsupportedOperationException("You cannot re-use the listener you get back"
+    throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }
 

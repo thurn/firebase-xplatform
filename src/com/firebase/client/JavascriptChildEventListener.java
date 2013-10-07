@@ -27,31 +27,31 @@ class JavascriptChildEventListener implements ChildEventListener {
 
   @Override
   public void onCancelled() {
-    throw new UnsupportedOperationException("You cannot re-use the listener you get back"
+    throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }
 
   @Override
   public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-    throw new UnsupportedOperationException("You cannot re-use the listener you get back"
+    throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }
 
   @Override
   public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-    throw new UnsupportedOperationException("You cannot re-use the listener you get back"
+    throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }
 
   @Override
   public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-    throw new UnsupportedOperationException("You cannot re-use the listener you get back"
+    throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }
 
   @Override
   public void onChildRemoved(DataSnapshot snapshot) {
-    throw new UnsupportedOperationException("You cannot re-use the listener you get back"
+    throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }
 

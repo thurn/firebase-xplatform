@@ -1,2 +1,2 @@
-# Module ca.thurn.Firebase.JUnit
+# Module com.firebase.Firebase
 # RPC service class, partial path of RPC policy file

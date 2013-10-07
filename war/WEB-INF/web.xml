@@ -6,6 +6,6 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <welcome-file-list>
-    <welcome-file>IntegrationTests.html</welcome-file>
+    <welcome-file>Main.html</welcome-file>
   </welcome-file-list>
 </web-app>
