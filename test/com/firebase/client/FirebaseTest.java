@@ -159,13 +159,8 @@ public class FirebaseTest extends GWTTestCase {
     runTestSet(true);
   }
 
-  public void testSetByteException() {
-    try {
-      runTestSet((byte) 12);
-      fail("Expected exception setting byte");
-    } catch (IllegalArgumentException expected) {
-      finishTest();
-    }
+  public void testSetByte() {
+    runTestSet((byte) 12, new Long(12));
   }
 
   public void testSetDouble() {
@@ -200,7 +195,7 @@ public class FirebaseTest extends GWTTestCase {
     child.setValue(map);
   }
 
-  public void testSetInt() {
+  public void testSetLong() {
     runTestSet(42L);
   }
 
@@ -233,13 +228,8 @@ public class FirebaseTest extends GWTTestCase {
     runTestSet(map);
   }
 
-  public void testSetIntException() {
-    try {
-      runTestSet(123);
-      fail("Expected exception setting integer");
-    } catch (IllegalArgumentException expected) {
-      finishTest();
-    }
+  public void testSetInt() {
+    runTestSet(123, new Long(123));
   }
 
   public void testSetMapDoubles() {
@@ -619,27 +609,31 @@ public class FirebaseTest extends GWTTestCase {
   }
 
   private void runTestSet(Object object) {
-    runTestSetOnce(object, null);
+	  runTestSet(object, object);
+  }
+  
+  private void runTestSet(Object object, Object expected) {
+    runTestSetOnce(object, null, expected);
     if (object != null) {
-      runTestSetOnce(object, "string");
-      runTestSetOnce(object, 123.2);
+      runTestSetOnce(object, "string", expected);
+      runTestSetOnce(object, 123.2, expected);
     } else {
       try {
-        runTestSetOnce(object, "123.0");
+        runTestSetOnce(object, "123.0", expected);
         fail("expected setting a priority on an null value to cause an exception");
-      } catch (IllegalArgumentException expected) {
+      } catch (IllegalArgumentException ex) {
         finishTest();
       }
     }
   }
 
-  private void runTestSetOnce(final Object object, final Object priority) {
+  private void runTestSetOnce(final Object object, final Object priority, final Object expected) {
     delayTestFinish(5000);
     final Firebase child = makeFirebase();
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
-        assertDeepEquals("values do not match", object, snapshot.getValue());
+        assertDeepEquals("values do not match", expected, snapshot.getValue());
         assertEquals(child.getName(), snapshot.getName());
         assertEquals("priorities do not match", priority, snapshot.getPriority());
         assertEquals(child.getName(), snapshot.getRef().getName());

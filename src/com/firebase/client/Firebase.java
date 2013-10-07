@@ -139,10 +139,6 @@ public class Firebase extends Query {
     } else if (object instanceof CharSequence) {
       return new JSONString(object.toString());
     } else if (object instanceof Number) {
-      if (!(object instanceof Double || object instanceof Long)) {
-        throw new IllegalArgumentException("Only numbers of type Double or Long "
-            + "are allowed.");
-      }
       return new JSONNumber(((Number) object).doubleValue());
     } else if (object instanceof Boolean) {
       return JSONBoolean.getInstance((Boolean) object);
@@ -264,7 +260,7 @@ public class Firebase extends Query {
   public void setPriority(Object priority, Firebase.CompletionListener listener) {
     if (priority == null || priority instanceof String) {
       setPriorityString((String)priority, listener);
-    } else if (priority instanceof Double || priority instanceof Long) {
+    } else if (priority instanceof Number) {
       setPriorityDouble(((Number)priority).doubleValue(), listener);
     }
   }
@@ -307,7 +303,7 @@ public class Firebase extends Query {
         throw new IllegalArgumentException("Cannot set a priority on a value of null.");
       }
       setValueNull(listener);
-    } else if (priority instanceof Double || priority instanceof Long) {
+    } else if (priority instanceof Number) {
       setDoublePriority(value, ((Number)priority).doubleValue(), listener);
     } else if (priority == null || priority instanceof String) {
       setStringPriority(value, (String) priority, listener);
@@ -360,10 +356,6 @@ public class Firebase extends Query {
     if (value instanceof CharSequence) {
       setValueStringDouble(value.toString(), priority, listener);
     } else if (value instanceof Number) {
-      if (!(value instanceof Double || value instanceof Long)) {
-        throw new IllegalArgumentException("Only numbers of type Double or Long can "
-            + "be passed to setValue()");
-      }
       setValueDoubleDouble(((Number) value).doubleValue(), priority, listener);
     } else if (value instanceof Boolean) {
       setValueBooleanDouble(((Boolean) value).booleanValue(), priority, listener);
@@ -384,10 +376,6 @@ public class Firebase extends Query {
     if (value instanceof CharSequence) {
       setValueStringString(value.toString(), priority, listener);
     } else if (value instanceof Number) {
-      if (!(value instanceof Double || value instanceof Long)) {
-        throw new IllegalArgumentException("Only numbers of type Double or Long can "
-            + "be passed to setValue()");
-      }
       setValueDoubleString(((Number) value).doubleValue(), priority, listener);
     } else if (value instanceof Boolean) {
       setValueBooleanString(((Boolean) value).booleanValue(), priority, listener);
