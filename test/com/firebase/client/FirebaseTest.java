@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import ca.thurn.gwt.SharedGWTTestCase;
+
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -14,11 +16,8 @@ import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.ScriptInjector;
-import com.google.gwt.junit.client.GWTTestCase;
-import com.google.gwt.user.client.Random;
-import com.google.gwt.user.client.Timer;
 
-public class FirebaseTest extends GWTTestCase {
+public class FirebaseTest extends SharedGWTTestCase {
 
   static class TestChildEventListener implements ChildEventListener {
 
@@ -81,27 +80,33 @@ public class FirebaseTest extends GWTTestCase {
 
   @Override
   protected void gwtSetUp() throws Exception {
-    delayTestFinish(10000);
-    if (didSetup == false) {
-      ScriptInjector.fromUrl("https://cdn.firebase.com/v0/firebase.js")
-          .setCallback(new Callback<Void, Exception>() {
-            @Override
-            public void onFailure(Exception reason) {}
+	if (!isServer()) {
+	  delayTestFinish(10000);
+	  if (didSetup == false) {
+	    ScriptInjector.fromUrl("https://cdn.firebase.com/v0/firebase.js")
+	    .setCallback(new Callback<Void, Exception>() {
+	      @Override
+	      public void onFailure(Exception reason) {}
 
-            @Override
-            public void onSuccess(Void result) {
-              didSetup = true;
-              finishTest();
-            }
-          }).inject();
-    } else {
-      finishTest();
-    }
+	      @Override
+	      public void onSuccess(Void result) {
+	        didSetup = true;
+	        finishTest();
+	      }
+	    }).inject();
+	  } else {
+	    finishTest();
+	  }
+	}
   }
-
+  
   @Override
   public String getModuleName() {
-    return "com.firebase.Firebase";
+    if (!isServer()) {
+      return "com.firebase.Firebase";
+    } else {
+      return null;
+    }
   }
 
   public void testChild() {
@@ -113,21 +118,22 @@ public class FirebaseTest extends GWTTestCase {
   }
 
   public void testGetClassLiteral() {
-    delayTestFinish(5000);
+	beginAsyncTestBlock();
     Firebase child = makeFirebase();
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
         Long value = snapshot.getValue(Long.class);
         assertEquals(new Long(123), value);
-        finishTest();
+        finished();
       }
     });
     child.setValue(123L);
+    endAsyncTestBlock();
   }
 
   public void testGetGenericTypeIndicator() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     Firebase child = makeFirebase();
     final List<Object> list = new ArrayList<Object>();
     list.add("one");
@@ -138,10 +144,11 @@ public class FirebaseTest extends GWTTestCase {
       public void onDataChange(DataSnapshot snapshot) {
         List<Object> result = snapshot.getValue(new GenericTypeIndicator<List<Object>>() {});
         assertDeepEquals("list value was wrong", list, result);
-        finishTest();
+        finished();
       }
     });
     child.setValue(list);
+    endAsyncTestBlock();
   }
 
   public void testGetName() {
@@ -168,31 +175,33 @@ public class FirebaseTest extends GWTTestCase {
   }
 
   public void testSetEmptyList() {
+    beginAsyncTestBlock();
     List<Double> doubles = new ArrayList<Double>();
-    delayTestFinish(5000);
     Firebase child = makeFirebase();
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
         assertEquals(null, snapshot.getValue());
-        finishTest();
+        finished();
       }
     });
     child.setValue(doubles);
+    endAsyncTestBlock();
   }
 
   public void testSetEmptyMap() {
+    beginAsyncTestBlock();
     Map<String, String> map = new HashMap<String, String>();
-    delayTestFinish(5000);
     Firebase child = makeFirebase();
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
         assertEquals(null, snapshot.getValue());
-        finishTest();
+        finished();
       }
     });
     child.setValue(map);
+    endAsyncTestBlock();
   }
 
   public void testSetLong() {
@@ -299,7 +308,7 @@ public class FirebaseTest extends GWTTestCase {
       runTestSet(list);
       fail("Expected null value in a list to cause an exception");
     } catch (IllegalArgumentException expected) {
-      finishTest();
+      finished();
     }
   }
 
@@ -308,7 +317,7 @@ public class FirebaseTest extends GWTTestCase {
   }
 
   public void testUpdateReadOnce() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     Firebase child = makeFirebase();
     Firebase alpha = child.child("alpha");
     alpha.addListenerForSingleValueEvent(new TestValueEventListener() {
@@ -322,17 +331,18 @@ public class FirebaseTest extends GWTTestCase {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
         assertEquals(2L, snapshot.getValue());
-        finishTest();
+        finished();
       }
     });
     Map<String, Object> update = new HashMap<String, Object>();
     update.put("alpha", "fred");
     update.put("beta", 2L);
     child.updateChildren(update);
+    endAsyncTestBlock();
   }
 
   public void testAddChild() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     Firebase firebase = makeFirebase();
     Firebase child = firebase.child("foo");
     firebase.addChildEventListener(new TestChildEventListener() {
@@ -340,14 +350,15 @@ public class FirebaseTest extends GWTTestCase {
       public void onChildAdded(DataSnapshot snapshot, String previousName) {
         assertEquals("va", snapshot.getValue());
         assertNull(previousName);
-        finishTest();
+        finished();
       }
     });
     child.setValue("va");
+    endAsyncTestBlock();
   }
 
   public void testAddRemoveChild() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     Firebase fb = makeFirebase();
     final Firebase child = fb.child("new");
     fb.addChildEventListener(new TestChildEventListener() {
@@ -361,29 +372,31 @@ public class FirebaseTest extends GWTTestCase {
       @Override
       public void onChildRemoved(DataSnapshot snapshot) {
         assertEquals(1234L, snapshot.getValue());
-        finishTest();
+        finished();
       }
     });
     child.setValue(1234L);
+    endAsyncTestBlock();
   }
 
   public void testChangeChild() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     final Firebase fb = makeFirebase();
     final Firebase child = fb.child("new");
     fb.addChildEventListener(new TestChildEventListener() {
       @Override
       public void onChildChanged(DataSnapshot snapshot, String prevChild) {
         assertEquals(4321L, snapshot.getValue());
-        finishTest();
+        finished();
       }
     });
     child.setValue(1234L);
     child.setValue(4321L);
+    endAsyncTestBlock();
   }
 
   public void testMoveChild() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     final Firebase fb = makeFirebase();
     final Firebase child = fb.child("new");
     final Firebase one = child.child("one");
@@ -396,17 +409,18 @@ public class FirebaseTest extends GWTTestCase {
       public void onChildMoved(DataSnapshot snapshot, String prevChild) {
         assertEquals(111L, snapshot.getValue());
         assertEquals("zero", prevChild);
-        finishTest();
+        finished();
       }
     });
     child.child("zero").setValue(9L, 9L);
     one.setValue(111L, 111L);
     child.child("two").setValue(222L, 222L);
     child.child("three").setValue(444L, 444L);
+    endAsyncTestBlock();
   }
 
   public void testRemoveChildListener() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     Firebase firebase = makeFirebase();
     Firebase child = firebase.child("child");
     final boolean[] failed = {false};
@@ -422,15 +436,16 @@ public class FirebaseTest extends GWTTestCase {
 	  @Override
 	  public void run() {
 	    if (failed[0] == false) {
-	      finishTest();
+	      finished();
 		}
       }
     });
     child.setValue("va");
+    endAsyncTestBlock();
   }
 
   public void testRemoveValueListener() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     Firebase firebase = makeFirebase();
     Firebase child = firebase.child("child");
     final boolean[] failed = {false};
@@ -446,15 +461,16 @@ public class FirebaseTest extends GWTTestCase {
 	  @Override
 	  public void run() {
         if (failed[0] == false) {
-          finishTest();
+          finished();
         }
       }
     });
     child.setValue("va");
+    endAsyncTestBlock();
   }
 
   public void testSingleValueEventListener() {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     final Firebase child = makeFirebase();
     final int[] numChanges = {0};
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
@@ -472,10 +488,11 @@ public class FirebaseTest extends GWTTestCase {
 	  @Override
 	  public void run() {
 	    if (numChanges[0] == 1) {
-	      finishTest();
+	      finished();
 	    }
       }
     });
+    endAsyncTestBlock();
   }
 //
 //  public void testTransaction() {
@@ -566,7 +583,7 @@ public class FirebaseTest extends GWTTestCase {
   }
 
   private void runQueryLimitingTest(final int expected, Query limited, boolean reverse) {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     Firebase base = limited.getRef();
     final int[] addedCount = {0};
     limited.addChildEventListener(new TestChildEventListener(){
@@ -590,22 +607,14 @@ public class FirebaseTest extends GWTTestCase {
 	  @Override
 	  public void run() {
 	    assertEquals(expected, addedCount[0]);
-	    finishTest();
+	    finished();
       }
     });
-  }
-  
-  private void schedule(int delayMillis, final Runnable runnable) {
-	  (new Timer() {
-		@Override
-		public void run() {
-			runnable.run();
-		}
-	  }).schedule(delayMillis);
+    endAsyncTestBlock();
   }
 
   private String randomName() {
-    return Math.abs(Random.nextInt()) + "";
+    return Math.abs(randomInteger()) + "";
   }
 
   private void runTestSet(Object object) {
@@ -622,13 +631,13 @@ public class FirebaseTest extends GWTTestCase {
         runTestSetOnce(object, "123.0", expected);
         fail("expected setting a priority on an null value to cause an exception");
       } catch (IllegalArgumentException ex) {
-        finishTest();
+        finished();
       }
     }
   }
 
   private void runTestSetOnce(final Object object, final Object priority, final Object expected) {
-    delayTestFinish(5000);
+    beginAsyncTestBlock();
     final Firebase child = makeFirebase();
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
@@ -637,7 +646,7 @@ public class FirebaseTest extends GWTTestCase {
         assertEquals(child.getName(), snapshot.getName());
         assertEquals("priorities do not match", priority, snapshot.getPriority());
         assertEquals(child.getName(), snapshot.getRef().getName());
-        finishTest();
+        finished();
       }
     });
     if (priority == null) {
@@ -645,5 +654,6 @@ public class FirebaseTest extends GWTTestCase {
     } else {
       child.setValue(object, priority);
     }
+    endAsyncTestBlock();
   }
 }
