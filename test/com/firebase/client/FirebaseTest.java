@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import ca.thurn.gwt.SharedGWTTestCase;
 
@@ -102,10 +104,10 @@ public class FirebaseTest extends SharedGWTTestCase {
   
   @Override
   public String getModuleName() {
-    if (!isServer()) {
-      return "com.firebase.Firebase";
-    } else {
+    if (isServer()) {
       return null;
+    } else {
+      return "com.firebase.Firebase";
     }
   }
 
@@ -296,10 +298,23 @@ public class FirebaseTest extends SharedGWTTestCase {
   }
 
   public void testSetNull() {
-    runTestSet(null);
+    beginAsyncTestBlock();
+    final Firebase child = makeFirebase();
+    child.addListenerForSingleValueEvent(new TestValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot snapshot) {
+        assertEquals(null, snapshot.getValue());
+        finished();
+      }
+    });
+    child.setValue(null);
+    endAsyncTestBlock();
   }
 
   public void testSetNullsListException() {
+    if (isServer()) {
+      return; // Regular firebase doesn't throw here
+    }
     List<Object> list = new ArrayList<Object>();
     list.add("one");
     list.add(2.340);
@@ -402,20 +417,22 @@ public class FirebaseTest extends SharedGWTTestCase {
     final Firebase one = child.child("one");
     child.addChildEventListener(new TestChildEventListener() {
       @Override
-      public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
-        one.setPriority(333L);
-      }
-      @Override
       public void onChildMoved(DataSnapshot snapshot, String prevChild) {
         assertEquals(111L, snapshot.getValue());
-        assertEquals("zero", prevChild);
+        assertEquals("two", prevChild);
         finished();
       }
     });
-    child.child("zero").setValue(9L, 9L);
+    child.child("zero").setValue(9L, 100L);
     one.setValue(111L, 111L);
     child.child("two").setValue(222L, 222L);
     child.child("three").setValue(444L, 444L);
+    schedule(1000, new Runnable() {
+      @Override
+      public void run() {
+        one.setPriority(333L);
+      }
+    });
     endAsyncTestBlock();
   }
 
@@ -423,11 +440,11 @@ public class FirebaseTest extends SharedGWTTestCase {
     beginAsyncTestBlock();
     Firebase firebase = makeFirebase();
     Firebase child = firebase.child("child");
-    final boolean[] failed = {false};
+    final AtomicBoolean failed = new AtomicBoolean(false);
     ChildEventListener listener = firebase.addChildEventListener(new TestChildEventListener() {
       @Override
       public void onChildAdded(DataSnapshot snapshot, String previousName) {
-        failed[0] = true;
+        failed.set(true);
         fail("Unexpected call to onChildAdded");
       }
     });
@@ -435,7 +452,7 @@ public class FirebaseTest extends SharedGWTTestCase {
     schedule(4000, new Runnable() {
 	  @Override
 	  public void run() {
-	    if (failed[0] == false) {
+	    if (!failed.get()) {
 	      finished();
 		}
       }
@@ -448,11 +465,11 @@ public class FirebaseTest extends SharedGWTTestCase {
     beginAsyncTestBlock();
     Firebase firebase = makeFirebase();
     Firebase child = firebase.child("child");
-    final boolean[] failed = {false};
+    final AtomicBoolean failed = new AtomicBoolean(false);
      ValueEventListener listener = firebase.addValueEventListener(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
-        failed[0] = true;
+        failed.set(true);
         fail("Unexpected call to onChildAdded");
       }
     });
@@ -460,7 +477,7 @@ public class FirebaseTest extends SharedGWTTestCase {
     schedule(4000, new Runnable() {
 	  @Override
 	  public void run() {
-        if (failed[0] == false) {
+        if (!failed.get()) {
           finished();
         }
       }
@@ -472,12 +489,12 @@ public class FirebaseTest extends SharedGWTTestCase {
   public void testSingleValueEventListener() {
     beginAsyncTestBlock();
     final Firebase child = makeFirebase();
-    final int[] numChanges = {0};
+    final AtomicInteger numChanges = new AtomicInteger(0);
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
-        numChanges[0]++;
-        if (numChanges[0] > 1) {
+        numChanges.getAndIncrement();
+        if (numChanges.get() > 1) {
           fail("Too many calls to onDataChange");
         }
         child.setValue(randomName());
@@ -487,37 +504,13 @@ public class FirebaseTest extends SharedGWTTestCase {
     schedule(4000, new Runnable() {
 	  @Override
 	  public void run() {
-	    if (numChanges[0] == 1) {
+	    if (numChanges.get() == 1) {
 	      finished();
 	    }
       }
     });
     endAsyncTestBlock();
   }
-//
-//  public void testTransaction() {
-//    delayTestFinish(5000);
-//    final Firebase child = firebase.child(randomName());
-//    child.setValue(123L);
-//    new Timer(){
-//      @Override
-//      public void run() {
-//        child.runTransaction(new Transaction.Handler(){
-//          @Override
-//          public Result doTransaction(MutableData currentData) {
-//            assertEquals(123L, currentData.getValue());
-//            currentData.setValue(456L);
-//            return Transaction.success(currentData);
-//          }
-//          @Override
-//          public void onComplete(FirebaseError error, boolean committed, DataSnapshot currentData) {
-//            assertNull(error);
-//            assertTrue(committed);
-//            assertEquals(456L, currentData.getValue());
-//            finishTest();
-//          }});
-//      }}.schedule(2500);
-//  }
 
   public void testStartAt() {
     Firebase child = makeFirebase();
@@ -585,11 +578,11 @@ public class FirebaseTest extends SharedGWTTestCase {
   private void runQueryLimitingTest(final int expected, Query limited, boolean reverse) {
     beginAsyncTestBlock();
     Firebase base = limited.getRef();
-    final int[] addedCount = {0};
+    final AtomicInteger addedCount = new AtomicInteger(0);
     limited.addChildEventListener(new TestChildEventListener(){
       @Override
       public void onChildAdded(DataSnapshot snapshot, String previousChild) {
-        addedCount[0]++;
+        addedCount.getAndIncrement();
       }
     });
     if (reverse) {
@@ -606,7 +599,7 @@ public class FirebaseTest extends SharedGWTTestCase {
     schedule(4000, new Runnable() {
 	  @Override
 	  public void run() {
-	    assertEquals(expected, addedCount[0]);
+	    assertEquals(expected, addedCount.get());
 	    finished();
       }
     });
@@ -623,17 +616,8 @@ public class FirebaseTest extends SharedGWTTestCase {
   
   private void runTestSet(Object object, Object expected) {
     runTestSetOnce(object, null, expected);
-    if (object != null) {
-      runTestSetOnce(object, "string", expected);
-      runTestSetOnce(object, 123.2, expected);
-    } else {
-      try {
-        runTestSetOnce(object, "123.0", expected);
-        fail("expected setting a priority on an null value to cause an exception");
-      } catch (IllegalArgumentException ex) {
-        finished();
-      }
-    }
+    runTestSetOnce(object, "string", expected);
+    runTestSetOnce(object, 123.2, expected);
   }
 
   private void runTestSetOnce(final Object object, final Object priority, final Object expected) {
