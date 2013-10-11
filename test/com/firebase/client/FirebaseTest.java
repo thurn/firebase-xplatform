@@ -2,6 +2,7 @@ package com.firebase.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -15,6 +16,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
+import com.firebase.client.Transaction.Result;
 
 public class FirebaseTest extends SharedGWTTestCase {
 
@@ -47,6 +49,12 @@ public class FirebaseTest extends SharedGWTTestCase {
     @Override
     public void onCancelled() {
       fail("Unexpected cancellation");
+    }
+  }
+  
+  static abstract class TestTransactionHandler implements Transaction.Handler {
+    @Override public void onComplete(FirebaseError error, boolean committed,
+        DataSnapshot currentData) {
     }
   }
 
@@ -522,6 +530,142 @@ public class FirebaseTest extends SharedGWTTestCase {
     Firebase firebase = makeFirebase();
     Query limited = firebase.endAt().limit(1);
     runQueryLimitingTest(1, limited, true);
+  }
+  
+  public void testTransactionNull() {
+    beginAsyncTestBlock();
+    Firebase firebase = makeFirebase();
+    firebase.runTransaction(new TestTransactionHandler() {
+      @Override
+      public Result doTransaction(MutableData currentData) {
+        assertEquals(null, currentData.getValue());
+        finished();
+        return Transaction.abort();
+      }
+    });
+    endAsyncTestBlock();
+  }
+  
+  public void testTransactionStringString() {
+    runTransactionTest("foo", "bar");
+  }
+  
+  public void testTransactionBoolBool() {
+    runTransactionTest(true, false);
+  }
+  
+  public void testTransactionLongLong() {
+    runTransactionTest(2L, 3L);
+  }
+  
+  public void testTransactionListList() {
+    List<String> list1 = new LinkedList<String>();
+    list1.add("foo");
+    List<String> list2 = new LinkedList<String>();
+    list2.add("bar");
+    runTransactionTest(list1, list2);
+  }
+  
+  public void testTransactionMapMap() {
+    Map<String, Double> map1 = new HashMap<String, Double>();
+    map1.put("foo", 2.9);
+    Map<String, Double> map2 = new HashMap<String, Double>();
+    map2.put("bar", 2.2);
+    runTransactionTest(map1, map2);
+  }
+  
+  public void testTransactionListEmptyList() {
+    List<String> list1 = new LinkedList<String>();
+    list1.add("foo");
+    List<String> list2 = new LinkedList<String>();
+    runTransactionRemoveTest(list1, list2);
+  }
+  
+  public void testTransactionMapEmptyMap() {
+    Map<String, Double> map1 = new HashMap<String, Double>();
+    map1.put("foo", 2.9);
+    Map<String, Double> map2 = new HashMap<String, Double>();
+    runTransactionRemoveTest(map1, map2);
+  }
+
+  public void testTransactionRemoveList() {
+    List<String> list1 = new LinkedList<String>();
+    list1.add("foo");
+    runTransactionRemoveTest(list1, null);
+  }
+  
+  public void runTransactionRemoveTest(final Object original, final Object altered) {
+    beginAsyncTestBlock();
+    final Firebase firebase = makeFirebase();
+    populateFirebaseWithValue(firebase, original, new PopulateCallback() {
+      @Override
+      public void onPopulate(DataSnapshot snapshot) {
+        firebase.child("foo").runTransaction(new TestTransactionHandler() {
+          @Override
+          public Result doTransaction(MutableData currentData) {
+            assertEquals(original, currentData.getValue());
+            currentData.setValue(altered);
+            return Transaction.success(currentData);
+          }
+        });
+      }
+      @Override
+      public void onRemoved(DataSnapshot snapshot) {
+        assertEquals(original, snapshot.getValue());
+        finished();
+      }
+    });
+    endAsyncTestBlock();
+  }
+  
+  public void runTransactionTest(final Object original, final Object altered) {
+    beginAsyncTestBlock();
+    final Firebase firebase = makeFirebase();
+    populateFirebaseWithValue(firebase, original, new PopulateCallback() {
+      @Override
+      public void onPopulate(DataSnapshot snapshot) {
+        firebase.child("foo").runTransaction(new TestTransactionHandler() {
+          @Override
+          public Result doTransaction(MutableData currentData) {
+            assertEquals(original, currentData.getValue());
+            currentData.setValue(altered);
+            return Transaction.success(currentData);
+          }
+        });
+      }
+      @Override
+      public void onNewValue(DataSnapshot snapshot) {
+        assertEquals(altered, snapshot.getValue());
+        finished();
+      }
+    });
+    endAsyncTestBlock();
+  }
+  
+  static abstract class PopulateCallback {
+    abstract void onPopulate(DataSnapshot snapshot);
+    void onNewValue(DataSnapshot snapshot) {}
+    void onRemoved(DataSnapshot snapshot) {}
+  }
+  
+  private void populateFirebaseWithValue(Firebase firebase, final Object value,
+      final PopulateCallback callback) {
+    firebase.addChildEventListener(new TestChildEventListener(){
+      @Override
+      public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+        assertEquals(value, snapshot.getValue());
+        callback.onPopulate(snapshot);
+      }
+      @Override
+      public void onChildChanged(DataSnapshot snapshot, String previousChild) {
+        callback.onNewValue(snapshot);
+      }
+      @Override
+      public void onChildRemoved(DataSnapshot snapshot) {
+        callback.onRemoved(snapshot);
+      }
+    });
+    firebase.child("foo").setValue(value);
   }
 
   private void runQueryLimitingTest(int expected, Query limited) {

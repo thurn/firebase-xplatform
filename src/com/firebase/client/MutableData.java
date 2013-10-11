@@ -1,14 +1,18 @@
 package com.firebase.client;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.json.client.JSONValue;
 
 public class MutableData {
   static MutableData wrapData(JavaScriptObject data) {
     return new MutableData(data);
   }
-  private final JavaScriptObject currentData;
 
-  private JavaScriptObject newData;
+  private Object result;
+  private final JavaScriptObject currentData;
 
   private MutableData(JavaScriptObject currentData) {
     this.currentData = currentData;
@@ -39,7 +43,8 @@ public class MutableData {
   }
 
   public native Object getValue() /*-{
-		return this.@com.firebase.client.MutableData::currentData;
+	var current = this.@com.firebase.client.MutableData::currentData;
+	return @com.firebase.client.DataSnapshot::getJavaValueFn()()(current.mutableData);
   }-*/;
 
   public <T> T getValue(Class<T> valueType) {
@@ -62,15 +67,51 @@ public class MutableData {
     throw new UnsupportedOperationException("Not implemented.");
   }
 
-  public native void setValue(Object value) /*-{
-		this.@com.firebase.client.MutableData::setNewData(Lcom/google/gwt/core/client/JavaScriptObject;)(value);
-  }-*/;
-
-  JavaScriptObject getNewData() {
-    return newData;
+  public void setValue(Object value) {
+    result = value;
   }
-
-  void setNewData(JavaScriptObject newData) {
-    this.newData = newData;
+  
+  private native JavaScriptObject jsString(String string) /*-{
+    return {val: string};
+  }-*/;
+  
+  private native JavaScriptObject jsNumber(double number) /*-{
+    return {val: number};
+  }-*/;
+  
+  private native JavaScriptObject jsBoolean(boolean bool) /*-{
+    return {val: bool};
+  }-*/;
+  
+  private native JavaScriptObject jsNull() /*-{
+    return {val: null};
+  }-*/;
+  
+  private native JavaScriptObject jsObject(JavaScriptObject object) /*-{
+    return {val: object}
+  }-*/;
+  
+  JavaScriptObject getNewData() {
+    if (result == null){
+      return jsNull();
+    } else if (result instanceof CharSequence) {
+      return jsString(result.toString());
+    } else if (result instanceof Number) {
+      return jsNumber(((Number) result).doubleValue());
+    } else if (result instanceof Boolean) {
+      return jsBoolean(((Boolean) result).booleanValue());
+    } else if (result instanceof Map || result instanceof List) {
+      JSONValue json = Firebase.toJsonValue(result);
+      if (json.isArray() != null) {
+        return jsObject(json.isArray().getJavaScriptObject());
+      } else if (json.isObject() != null) {
+        return jsObject(json.isObject().getJavaScriptObject());
+      } else {
+        throw new IllegalArgumentException("Map or List didn't convert to JSON");
+      }
+    } else {
+      throw new IllegalArgumentException("Object " + result + " of type " + result.getClass()
+          + " cannot be passed to getNewData()");
+    }
   }
 }

@@ -111,7 +111,7 @@ public class DataSnapshot {
     return @com.firebase.client.DataSnapshot::getJavaValueFn()()(jso);
   }-*/;
 
-  private static native JavaScriptObject getJavaValueFn() /*-{
+  static native JavaScriptObject getJavaValueFn() /*-{
     return function(val) {
       if (val === null) {
         return @com.firebase.client.DataSnapshot::fromJavaScriptNull()();

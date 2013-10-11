@@ -10,7 +10,11 @@ public class Transaction {
   }
   public static class Result {
     static JavaScriptObject getResultData(Result result) {
-      return result.data.getNewData();
+      if (result.data == null) {
+        return null;
+      } else {
+        return result.data.getNewData();
+      }
     }
 
     private final MutableData data;
@@ -33,6 +37,9 @@ public class Transaction {
   }
 
   public static Result success(MutableData resultData) {
+    if (resultData == null) {
+      throw new IllegalArgumentException("Argument to Transaction.success() was null");
+    }
     return new Result(resultData);
   }
 }

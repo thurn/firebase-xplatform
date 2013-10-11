@@ -236,9 +236,15 @@ public class Firebase extends Query {
   public native void runTransaction(Transaction.Handler handler, boolean fireLocalEvents) /*-{
     var firebase = this.@com.firebase.client.Query::firebase;
     var updateFunction = function(currentData) {
-      var mutableData = @com.firebase.client.MutableData::wrapData(Lcom/google/gwt/core/client/JavaScriptObject;)(currentData);
+      var data = {mutableData: currentData};
+      var mutableData = @com.firebase.client.MutableData::wrapData(Lcom/google/gwt/core/client/JavaScriptObject;)(data);
       var result = handler.@com.firebase.client.Transaction.Handler::doTransaction(Lcom/firebase/client/MutableData;)(mutableData);
       var jsResult = @com.firebase.client.Transaction.Result::getResultData(Lcom/firebase/client/Transaction$Result;)(result);
+      if (jsResult == null) {
+        return;
+      } else {
+        return jsResult.val;
+      }
       return jsResult;
     };
     var completionFunction = function(error, wasCommitted, snapshot) {
