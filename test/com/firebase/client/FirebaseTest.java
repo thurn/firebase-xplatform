@@ -2,7 +2,6 @@ package com.firebase.client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -16,8 +15,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-import com.google.gwt.core.client.Callback;
-import com.google.gwt.core.client.ScriptInjector;
 
 public class FirebaseTest extends SharedGWTTestCase {
 
@@ -53,55 +50,11 @@ public class FirebaseTest extends SharedGWTTestCase {
     }
   }
 
-  private static void assertDeepEquals(String msg, Object o1, Object o2) {
-    if (o1 instanceof Iterable && o2 instanceof Iterable) {
-      @SuppressWarnings("unchecked")
-      Iterator<Object> ite1 = ((Iterable<Object>) o1).iterator();
-      @SuppressWarnings("unchecked")
-      Iterator<Object> ite2 = ((Iterable<Object>) o2).iterator();
-      while (ite1.hasNext() && ite2.hasNext()) {
-        assertDeepEquals(msg, ite1.next(), ite2.next());
-      }
-      assertFalse("Iterable sizes differ", ite1.hasNext() || ite2.hasNext());
-    } else if (o1 instanceof Map && o2 instanceof Map) {
-      @SuppressWarnings("unchecked")
-      Map<Object, Object> map1 = (Map<Object, Object>) o1;
-      @SuppressWarnings("unchecked")
-      Map<Object, Object> map2 = (Map<Object, Object>) o2;
-      assertEquals("Map sizes differ", map1.size(), map2.size());
-      for (Map.Entry<Object, Object> entry : map1.entrySet()) {
-        assertTrue(map2.containsKey(entry.getKey()));
-        assertDeepEquals(msg, entry.getValue(), map2.get(entry.getKey()));
-      }
-    } else {
-      assertEquals(msg, o1, o2);
-    }
-  }
-
-  private boolean didSetup = false;
-
   @Override
-  protected void gwtSetUp() throws Exception {
-	if (!isServer()) {
-	  delayTestFinish(10000);
-	  if (didSetup == false) {
-	    ScriptInjector.fromUrl("https://cdn.firebase.com/v0/firebase.js")
-	    .setCallback(new Callback<Void, Exception>() {
-	      @Override
-	      public void onFailure(Exception reason) {}
-
-	      @Override
-	      public void onSuccess(Void result) {
-	        didSetup = true;
-	        finishTest();
-	      }
-	    }).inject();
-	  } else {
-	    finishTest();
-	  }
-	}
+  public void gwtSetUp() {
+    injectScript("https://cdn.firebase.com/v0/firebase.js");
   }
-  
+
   @Override
   public String getModuleName() {
     if (isServer()) {

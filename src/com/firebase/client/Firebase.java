@@ -116,12 +116,8 @@ public class Firebase extends Query {
     };
   }-*/;
 
-  static void print(Object msg) {
-    if (msg != null) {
-      System.out.println("[" + msg.getClass() + "] " + msg);
-    } else {
-      System.out.println("[null]");
-    }
+  static void print() {
+    System.out.println("[null]");
   }
 
   /**
