@@ -18,7 +18,7 @@ public class MutableData {
     this.currentData = currentData;
   }
 
-  public String child(String path) {
+  public MutableData child(String path) {
     throw new UnsupportedOperationException("Not implemented.");
   }
 

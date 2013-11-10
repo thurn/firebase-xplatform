@@ -51,8 +51,7 @@ public class Firebase extends Query {
    * @return A JavaScript firebase reference for this URL.
    */
   private static native JavaScriptObject createFirebase(String url) /*-{
-    var result = new Firebase(url);
-    return result;
+    return new Firebase(url);
   }-*/;
 
   private static Object toJavaScript(Object object) {
@@ -116,8 +115,8 @@ public class Firebase extends Query {
     };
   }-*/;
 
-  static void print() {
-    System.out.println("[null]");
+  static void print(Object object) {
+    System.out.println(">>>>> " + object);
   }
 
   /**
