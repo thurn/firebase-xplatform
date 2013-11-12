@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="war/WEB-INF/lib/firebase-client-jvm-LATEST.jar"/>
+	<classpathentry exported="true" kind="lib" path="war/WEB-INF/lib/firebase-client-jvm-LATEST.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/shared-test-case"/>
 	<classpathentry excluding="ca/thurn/testing/|ca/thurn/testing/" kind="src" output="test-classes" path="test"/>
-	<classpathentry kind="src" path="gwt"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry excluding="com/firebase/client/" kind="src" path="gwt"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

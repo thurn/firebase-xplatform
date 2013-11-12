@@ -60,17 +60,13 @@ public class FirebaseTest extends SharedTestCase {
   public FirebaseTest() {}
   
   @Override
-  public void gwtSetUp() {
-    injectScript("https://cdn.firebase.com/v0/firebase.js");
+  public void sharedSetUpTestCase(Runnable done) {
+    injectScript("https://cdn.firebase.com/v0/firebase.js", done);
   }
   
   @Override
-  public String getModuleName() {
-    if (getTestMode() == TestMode.JAVASCRIPT) {
-      return "com.firebase.Firebase";      
-    } else {
-      return null;
-    }
+  public String getJavascriptModuleName() {
+    return "com.firebase.Firebase";      
   }
 
   public void testGetName() {

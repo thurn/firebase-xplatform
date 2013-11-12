@@ -3,6 +3,10 @@ package ca.thurn.testing;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import ca.thurn.testing.SharedTestCase.OneTimeRunnable;
+import ca.thurn.testing.SharedTestCase.TestMode;
 
 import junit.framework.TestCase;
 
@@ -21,19 +25,79 @@ TRVSMonitor *global_trvs_monitor;
  */
 public abstract class SharedTestCase extends TestCase {
 
+  final AtomicBoolean didSetUpTestCase = new AtomicBoolean(false);
+  
   public static enum TestMode {
     JAVA,
     JAVASCRIPT,
     OBJECTIVE_C
   }
   
-  public void gwtSetUp() {
+  public abstract String getJavascriptModuleName();
+  
+  static class OneTimeRunnable implements Runnable {
+    private final AtomicBoolean ran = new AtomicBoolean(false);
+    private final Runnable runnable;
+    
+    OneTimeRunnable(Runnable runnable) {
+      this.runnable = runnable;
+    }
+    
+    @Override
+    public void run() {
+      if (ran.getAndSet(true) == false) {
+        runnable.run();
+      }
+    }
   }
   
-  public abstract String getModuleName();
-
-  public void injectScript(String url) {
-    injectScript(url, null);
+  @Override
+  public void setUp() throws Exception {
+    super.setUp();
+    gwtSetUp();
+  }
+  
+  @Override
+  public void tearDown() throws Exception {
+    super.tearDown();
+    gwtTearDown();
+  }
+  
+  public final void gwtSetUp() {
+    beginAsyncTestBlock();
+    final Runnable runFinished = new OneTimeRunnable(new Runnable() {
+      @Override
+      public void run() {
+        finished();
+      }});
+    sharedSetUpTestCase(runFinished);    
+    if (didSetUpTestCase.getAndSet(true) == false) {
+      Runnable runSetUp = new OneTimeRunnable(new Runnable() {
+        @Override
+        public void run() {
+          sharedSetUp(runFinished);
+        }
+      });
+      sharedSetUpTestCase(runSetUp);
+    } else {
+      sharedSetUp(runFinished);
+    }
+    endAsyncTestBlock();
+  }
+  
+  public final void gwtTearDown() {
+    sharedTearDown();
+  }
+  
+  public void sharedSetUpTestCase(Runnable done) {
+    done.run();
+  }
+  
+  public void sharedSetUp(Runnable done) {
+    done.run();
+  }
+  
+  public void sharedTearDown() {
   }
   
   public void injectScript(String url, final Runnable onComplete) {

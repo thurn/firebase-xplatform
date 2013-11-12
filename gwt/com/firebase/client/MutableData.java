@@ -47,12 +47,14 @@ public class MutableData {
 	return @com.firebase.client.DataSnapshot::getJavaValueFn()()(current.mutableData);
   }-*/;
 
+  @SuppressWarnings("unchecked")
   public <T> T getValue(Class<T> valueType) {
-    throw new UnsupportedOperationException("Not implemented.");
+    return (T)getValue();
   }
 
+  @SuppressWarnings("unchecked")
   public <T> T getValue(GenericTypeIndicator<T> t) {
-    throw new UnsupportedOperationException("Not implemented.");
+    return (T)getValue();
   }
 
   public boolean hasChild(String path) {
