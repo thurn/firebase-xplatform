@@ -13,9 +13,6 @@ import org.junit.runner.JUnitCore;
 import ca.thurn.testing.SharedTestCase;
 
 import com.firebase.client.Transaction.Result;
-import com.google.gwt.core.client.Callback;
-import com.google.gwt.core.client.ScriptInjector;
-import com.google.gwt.user.client.Window;
 
 public class FirebaseTest extends SharedTestCase {
   static class TestChildEventListener implements ChildEventListener {
