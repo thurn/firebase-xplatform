@@ -39,7 +39,7 @@ class TestEntryPoint implements EntryPoint {
           @Override
           public void onDataChange(DataSnapshot snapshot) {
             Map<String, Object> newMap = snapshot.getValue(
-                new GenericTypeIndicator<Map<String,Object>>());
+                new GenericTypeIndicator<Map<String,Object>>(){});
             Window.alert(newMap.get("one").toString());
           }
           
