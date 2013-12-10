@@ -23,5 +23,4 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.firebase.client.FirebaseTest"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="firebase"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dtest.mode=server"/>
 </launchConfiguration>

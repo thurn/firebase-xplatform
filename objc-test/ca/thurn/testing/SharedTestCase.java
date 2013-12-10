@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import ca.thurn.testing.SharedTestCase.OneTimeRunnable;
-import ca.thurn.testing.SharedTestCase.TestMode;
+import org.junit.runner.JUnitCore;
 
 import junit.framework.TestCase;
 
@@ -15,14 +15,6 @@ import junit.framework.TestCase;
 TRVSMonitor *global_trvs_monitor;
 ]-*/
 
-/**
- * A subclass for sharing asynchronous GWTTestCase tests between client-side and server-side code.
- * 
- * Usage: At the end of your asynchronous test's main body, invoke awaitFinished(). On the server,
- * this blocks the test thread. On the client, this sets up a listener. When your asynchronous
- * callback completes, invoke finished() to unblock the thread (on the server) or mark the test
- * finished (on the client).
- */
 public abstract class SharedTestCase extends TestCase {
 
   final AtomicBoolean didSetUpTestCase = new AtomicBoolean(false);
@@ -51,26 +43,62 @@ public abstract class SharedTestCase extends TestCase {
     }
   }
   
-  @Override
-  public void setUp() throws Exception {
-    super.setUp();
-    gwtSetUp();
+  public static class BooleanReference {
+    private AtomicBoolean value;
+    
+    public BooleanReference(boolean value) {
+      this.value = new AtomicBoolean(value);
+    }
+    
+    public void set(boolean newValue) {
+      value.set(newValue);
+    }
+    
+    public boolean get() {
+      return value.get();
+    }
+    
+    public boolean getAndSet(boolean newValue) {
+      return value.getAndSet(newValue);
+    }
+  }
+  
+  public static class IntegerReference {
+    private AtomicInteger value;
+    
+    public IntegerReference(int value) {
+      this.value = new AtomicInteger(value);
+    }
+    
+    public void set(int newValue) {
+      value.set(newValue);
+    }
+    
+    public int get() {
+      return value.get();
+    }
+    
+    public int getAndSet(int newValue) {
+      return value.getAndSet(newValue);
+    }
+    
+    public int getAndIncrement() {
+      return value.getAndIncrement();
+    }
+  }
+  
+  public static void runMain(String name) {
+    JUnitCore.main(name);
   }
   
   @Override
-  public void tearDown() throws Exception {
-    super.tearDown();
-    gwtTearDown();
-  }
-  
-  public final void gwtSetUp() {
+  public final void setUp() {
     beginAsyncTestBlock();
     final Runnable runFinished = new OneTimeRunnable(new Runnable() {
       @Override
       public void run() {
         finished();
       }});
-    sharedSetUpTestCase(runFinished);    
     if (didSetUpTestCase.getAndSet(true) == false) {
       Runnable runSetUp = new OneTimeRunnable(new Runnable() {
         @Override
@@ -85,7 +113,8 @@ public abstract class SharedTestCase extends TestCase {
     endAsyncTestBlock();
   }
   
-  public final void gwtTearDown() {
+  @Override
+  public final void tearDown() {
     sharedTearDown();
   }
   
@@ -126,7 +155,8 @@ public abstract class SharedTestCase extends TestCase {
   }
 
   /**
-   * Indicates that your test, where you previously called awaitFinished(), is done executing.
+   * Indicates that your test, where you previously called beginAsyncTestBlock(), is done
+   * executing.
    */
   public synchronized native void finished() /*-[
     [global_trvs_monitor signal];

@@ -7,13 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FirebaseTest.h"
-#include "org/junit/runner/JUnitCore.h"
+#import "SharedTestCase.h"
 
 int main(int argc, const char * argv[])
 {
   @autoreleasepool {
-    [FCFirebaseTest runJUnit];
+    [CaThurnTestingSharedTestCase runMainWithNSString: @"FCFirebaseTest"];
   }
   return 0;
 }

@@ -5,16 +5,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.junit.runner.JUnitCore;
 
 import ca.thurn.testing.SharedTestCase;
 
 import com.firebase.client.Transaction.Result;
 
 public class FirebaseTest extends SharedTestCase {
+  
   static class TestChildEventListener implements ChildEventListener {
 
     @Override
@@ -51,10 +48,6 @@ public class FirebaseTest extends SharedTestCase {
     @Override public void onComplete(FirebaseError error, boolean committed,
         DataSnapshot currentData) {
     }
-  }
-  
-  public static void runJUnit() {
-    JUnitCore.main("FCFirebaseTest");
   }
   
   public FirebaseTest() {}
@@ -398,7 +391,7 @@ public class FirebaseTest extends SharedTestCase {
     beginAsyncTestBlock();
     Firebase firebase = makeFirebase();
     Firebase child = firebase.child("child");
-    final AtomicBoolean failed = new AtomicBoolean(false);
+    final BooleanReference failed = new BooleanReference(false);
     ChildEventListener listener = firebase.addChildEventListener(new TestChildEventListener() {
       @Override
       public void onChildAdded(DataSnapshot snapshot, String previousName) {
@@ -423,7 +416,7 @@ public class FirebaseTest extends SharedTestCase {
     beginAsyncTestBlock();
     Firebase firebase = makeFirebase();
     Firebase child = firebase.child("child");
-    final AtomicBoolean failed = new AtomicBoolean(false);
+    final BooleanReference failed = new BooleanReference(false);
     ValueEventListener listener = firebase.addValueEventListener(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
@@ -447,7 +440,7 @@ public class FirebaseTest extends SharedTestCase {
   public void testSingleValueEventListener() {
     beginAsyncTestBlock();
     final Firebase child = makeFirebase();
-    final AtomicInteger numChanges = new AtomicInteger(0);
+    final IntegerReference numChanges = new IntegerReference(0);
     child.addListenerForSingleValueEvent(new TestValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot snapshot) {
@@ -671,7 +664,7 @@ public class FirebaseTest extends SharedTestCase {
   private void runQueryLimitingTest(final int expected, Firebase base, Query limited,
       boolean reverse) {
     beginAsyncTestBlock();
-        final AtomicInteger addedCount = new AtomicInteger(0);
+        final IntegerReference addedCount = new IntegerReference(0);
     limited.addChildEventListener(new TestChildEventListener(){
       @Override
       public void onChildAdded(DataSnapshot snapshot, String previousChild) {
