@@ -10,22 +10,24 @@ import org.junit.runner.JUnitCore;
 
 import junit.framework.TestCase;
 
-/*-[
-#import "TRVSMonitor.h"
-TRVSMonitor *global_trvs_monitor;
-]-*/
-
+/**
+ * A subclass for sharing asynchronous GWTTestCase tests between client-side and server-side code.
+ * 
+ * Usage: At the end of your asynchronous test's main body, invoke awaitFinished(). On the server,
+ * this blocks the test thread. On the client, this sets up a listener. When your asynchronous
+ * callback completes, invoke finished() to unblock the thread (on the server) or mark the test
+ * finished (on the client).
+ */
 public abstract class SharedTestCase extends TestCase {
 
-  final AtomicBoolean didSetUpTestCase = new AtomicBoolean(false);
+  AtomicBoolean didSetUpTestCase = new AtomicBoolean(false);
+  Monitor testMonitor;
   
   public static enum TestMode {
     JAVA,
     JAVASCRIPT,
     OBJECTIVE_C
   }
-  
-  public abstract String getJavascriptModuleName();
   
   static class OneTimeRunnable implements Runnable {
     private final AtomicBoolean ran = new AtomicBoolean(false);
@@ -91,14 +93,28 @@ public abstract class SharedTestCase extends TestCase {
     JUnitCore.main(name);
   }
   
+  public abstract String getJavascriptModuleName();
+  
   @Override
-  public final void setUp() {
+  public void setUp() throws Exception {
+    super.setUp();
+    gwtSetUp();
+  }
+  
+  @Override
+  public void tearDown() throws Exception {
+    super.tearDown();
+    gwtTearDown();
+  }
+  
+  public final void gwtSetUp() {
     beginAsyncTestBlock();
     final Runnable runFinished = new OneTimeRunnable(new Runnable() {
       @Override
       public void run() {
         finished();
       }});
+    sharedSetUpTestCase(runFinished);    
     if (didSetUpTestCase.getAndSet(true) == false) {
       Runnable runSetUp = new OneTimeRunnable(new Runnable() {
         @Override
@@ -113,8 +129,7 @@ public abstract class SharedTestCase extends TestCase {
     endAsyncTestBlock();
   }
   
-  @Override
-  public final void tearDown() {
+  public final void gwtTearDown() {
     sharedTearDown();
   }
   
@@ -139,28 +154,27 @@ public abstract class SharedTestCase extends TestCase {
     beginAsyncTestBlock(1);
   }
 
-  public synchronized native void beginAsyncTestBlock(int numFinishesExpected) /*-[
-    global_trvs_monitor = [[TRVSMonitor alloc] initWithExpectedSignalCount:1];
-  ]-*/;
-
-  public native void endAsyncTestBlock() /*-[
-    BOOL signaled = [global_trvs_monitor waitWithTimeout: 10.0];
-    if (!signaled) {
-      [JunitFrameworkAssert failWithNSString: @"test timed out"];
+  public void beginAsyncTestBlock(int numFinishesExpected) {
+    testMonitor = new Monitor(numFinishesExpected);
+  }
+  
+  public void endAsyncTestBlock() {
+    boolean timedOut = testMonitor.waitForSignals();
+    if (timedOut) {
+      fail("Test Timed Out!");
     }
-  ]-*/;
+  }
 
   public TestMode getTestMode() {
     return TestMode.OBJECTIVE_C;
   }
 
   /**
-   * Indicates that your test, where you previously called beginAsyncTestBlock(), is done
-   * executing.
+   * Indicates that your test, where you previously called awaitFinished(), is done executing.
    */
-  public synchronized native void finished() /*-[
-    [global_trvs_monitor signal];
-  ]-*/;
+  public void finished() {
+    testMonitor.signal();
+  }
 
   public void schedule(int delayMillis, final Runnable runnable) {
     new java.util.Timer().schedule(new TimerTask() {

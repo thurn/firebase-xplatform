@@ -17,6 +17,8 @@
 		7C187EE91824329E0082E0E2 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C187EE71824329E0082E0E2 /* Main_iPad.storyboard */; };
 		7C187EEC1824329E0082E0E2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C187EEB1824329E0082E0E2 /* ViewController.m */; };
 		7C187EEE1824329E0082E0E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C187EED1824329E0082E0E2 /* Images.xcassets */; };
+		7C390126185D1F2400F256E2 /* Monitor.java in Sources */ = {isa = PBXBuildFile; fileRef = 7C390124185D1F2400F256E2 /* Monitor.java */; };
+		7C390127185D1F2400F256E2 /* SharedTestCase.java in Sources */ = {isa = PBXBuildFile; fileRef = 7C390125185D1F2400F256E2 /* SharedTestCase.java */; };
 		7C74BB821828475C008A63C0 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C74BB811828475C008A63C0 /* libicucore.dylib */; };
 		7C74BB8418284763008A63C0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C74BB8318284763008A63C0 /* CFNetwork.framework */; };
 		7C74BB861828476E008A63C0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C74BB851828476E008A63C0 /* Security.framework */; };
@@ -55,8 +57,6 @@
 		7CBB17451831D8E0007ABC60 /* WrappedChildEventListener.java in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB172C1831D8E0007ABC60 /* WrappedChildEventListener.java */; };
 		7CBB17461831D8E0007ABC60 /* WrappedValueEventListener.java in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB172D1831D8E0007ABC60 /* WrappedValueEventListener.java */; };
 		7CBB17471831D8E0007ABC60 /* WrappedValueEventListener.java in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB172D1831D8E0007ABC60 /* WrappedValueEventListener.java */; };
-		7CBB17571831ED6C007ABC60 /* SharedTestCase.java in Sources */ = {isa = PBXBuildFile; fileRef = 7CBB17561831ED6C007ABC60 /* SharedTestCase.java */; };
-		7CCB8AB0182B6C8D00FDF1D7 /* TRVSMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CCB8AAE182B6C8D00FDF1D7 /* TRVSMonitor.m */; };
 		7CFD7F6E18285E9900FE0E9E /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFD7F6D18285E9900FE0E9E /* Firebase.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +116,8 @@
 		7C187EEB1824329E0082E0E2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7C187EED1824329E0082E0E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7C187EF41824329E0082E0E2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		7C390124185D1F2400F256E2 /* Monitor.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = Monitor.java; sourceTree = "<group>"; };
+		7C390125185D1F2400F256E2 /* SharedTestCase.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SharedTestCase.java; sourceTree = "<group>"; };
 		7C74BB811828475C008A63C0 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		7C74BB8318284763008A63C0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7C74BB851828476E008A63C0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -141,9 +143,6 @@
 		7CBB172B1831D8E0007ABC60 /* ValueEventListener.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ValueEventListener.java; sourceTree = "<group>"; };
 		7CBB172C1831D8E0007ABC60 /* WrappedChildEventListener.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = WrappedChildEventListener.java; sourceTree = "<group>"; };
 		7CBB172D1831D8E0007ABC60 /* WrappedValueEventListener.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = WrappedValueEventListener.java; sourceTree = "<group>"; };
-		7CBB17561831ED6C007ABC60 /* SharedTestCase.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = SharedTestCase.java; sourceTree = "<group>"; };
-		7CCB8AAE182B6C8D00FDF1D7 /* TRVSMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRVSMonitor.m; sourceTree = "<group>"; };
-		7CCB8AAF182B6C8D00FDF1D7 /* TRVSMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRVSMonitor.h; sourceTree = "<group>"; };
 		7CCB8B1F182EF2F000FDF1D7 /* JUnitCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JUnitCore.h; sourceTree = "<group>"; };
 		7CFD7F6D18285E9900FE0E9E /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Firebase.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,7 +181,7 @@
 		7C187EC61824329E0082E0E2 = {
 			isa = PBXGroup;
 			children = (
-				7CBB17521831ED6C007ABC60 /* objc-test */,
+				7C390120185D1F2400F256E2 /* objc-test */,
 				7CBB171D1831D8E0007ABC60 /* objc */,
 				7CBB1712182EFEA7007ABC60 /* test */,
 				7C187ED81824329E0082E0E2 /* Firebase */,
@@ -247,11 +246,42 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7C390120185D1F2400F256E2 /* objc-test */ = {
+			isa = PBXGroup;
+			children = (
+				7C390121185D1F2400F256E2 /* ca */,
+			);
+			path = "objc-test";
+			sourceTree = "<group>";
+		};
+		7C390121185D1F2400F256E2 /* ca */ = {
+			isa = PBXGroup;
+			children = (
+				7C390122185D1F2400F256E2 /* thurn */,
+			);
+			path = ca;
+			sourceTree = "<group>";
+		};
+		7C390122185D1F2400F256E2 /* thurn */ = {
+			isa = PBXGroup;
+			children = (
+				7C390123185D1F2400F256E2 /* testing */,
+			);
+			path = thurn;
+			sourceTree = "<group>";
+		};
+		7C390123185D1F2400F256E2 /* testing */ = {
+			isa = PBXGroup;
+			children = (
+				7C390124185D1F2400F256E2 /* Monitor.java */,
+				7C390125185D1F2400F256E2 /* SharedTestCase.java */,
+			);
+			path = testing;
+			sourceTree = "<group>";
+		};
 		7C84554B182ADF39007C53E8 /* FirebaseJUnit */ = {
 			isa = PBXGroup;
 			children = (
-				7CCB8AAE182B6C8D00FDF1D7 /* TRVSMonitor.m */,
-				7CCB8AAF182B6C8D00FDF1D7 /* TRVSMonitor.h */,
 				7C84554C182ADF39007C53E8 /* main.m */,
 				7C845550182ADF39007C53E8 /* FirebaseJUnit.1 */,
 				7C84554E182ADF39007C53E8 /* Supporting Files */,
@@ -341,38 +371,6 @@
 				7CBB172D1831D8E0007ABC60 /* WrappedValueEventListener.java */,
 			);
 			path = client;
-			sourceTree = "<group>";
-		};
-		7CBB17521831ED6C007ABC60 /* objc-test */ = {
-			isa = PBXGroup;
-			children = (
-				7CBB17531831ED6C007ABC60 /* ca */,
-			);
-			path = "objc-test";
-			sourceTree = "<group>";
-		};
-		7CBB17531831ED6C007ABC60 /* ca */ = {
-			isa = PBXGroup;
-			children = (
-				7CBB17541831ED6C007ABC60 /* thurn */,
-			);
-			path = ca;
-			sourceTree = "<group>";
-		};
-		7CBB17541831ED6C007ABC60 /* thurn */ = {
-			isa = PBXGroup;
-			children = (
-				7CBB17551831ED6C007ABC60 /* testing */,
-			);
-			path = thurn;
-			sourceTree = "<group>";
-		};
-		7CBB17551831ED6C007ABC60 /* testing */ = {
-			isa = PBXGroup;
-			children = (
-				7CBB17561831ED6C007ABC60 /* SharedTestCase.java */,
-			);
-			path = testing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,16 +484,16 @@
 				7CBB173D1831D8E0007ABC60 /* Query.java in Sources */,
 				7CBB171C182EFEA7007ABC60 /* FirebaseTest.java in Sources */,
 				7CBB17411831D8E0007ABC60 /* Transaction.java in Sources */,
-				7CBB17571831ED6C007ABC60 /* SharedTestCase.java in Sources */,
 				7CBB173B1831D8E0007ABC60 /* OnDisconnect.java in Sources */,
+				7C390127185D1F2400F256E2 /* SharedTestCase.java in Sources */,
 				7CBB17371831D8E0007ABC60 /* GenericTypeIndicator.java in Sources */,
 				7CBB17431831D8E0007ABC60 /* ValueEventListener.java in Sources */,
-				7CCB8AB0182B6C8D00FDF1D7 /* TRVSMonitor.m in Sources */,
 				7CBB17311831D8E0007ABC60 /* DataSnapshot.java in Sources */,
 				7C84554D182ADF39007C53E8 /* main.m in Sources */,
 				7CBB17391831D8E0007ABC60 /* MutableData.java in Sources */,
 				7CBB17471831D8E0007ABC60 /* WrappedValueEventListener.java in Sources */,
 				7CBB17351831D8E0007ABC60 /* FirebaseError.java in Sources */,
+				7C390126185D1F2400F256E2 /* Monitor.java in Sources */,
 				7CBB17331831D8E0007ABC60 /* Firebase.java in Sources */,
 				7CBB17451831D8E0007ABC60 /* WrappedChildEventListener.java in Sources */,
 				7CBB172F1831D8E0007ABC60 /* ChildEventListener.java in Sources */,
@@ -632,6 +630,7 @@
 					"-l",
 					jre_emul,
 					"-ObjC",
+					"-lz",
 				);
 				PRODUCT_NAME = Firebase;
 				WRAPPER_EXTENSION = app;
@@ -663,6 +662,7 @@
 					"-l",
 					jre_emul,
 					"-ObjC",
+					"-lz",
 				);
 				PRODUCT_NAME = Firebase;
 				WRAPPER_EXTENSION = app;
@@ -697,6 +697,7 @@
 					"-l",
 					jre_emul,
 					"-ObjC",
+					"-lz",
 				);
 				PRODUCT_NAME = FirebaseJUnit;
 				SDKROOT = macosx;
@@ -728,6 +729,7 @@
 					"-l",
 					jre_emul,
 					"-ObjC",
+					"-lz",
 				);
 				PRODUCT_NAME = FirebaseJUnit;
 				SDKROOT = macosx;
