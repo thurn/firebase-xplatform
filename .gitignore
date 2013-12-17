@@ -30,3 +30,5 @@ build/
 !default.perspectivev3
 xcuserdata
 *.moved-aside
+firebase-gwt-*.jar
+firebase-objc-*.zip

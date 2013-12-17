@@ -5,8 +5,8 @@
   <inherits name='com.google.gwt.user.User'/>
   <inherits name="com.google.gwt.json.JSON" /> 
   <inherits name="com.google.gwt.junit.JUnit" />
-  <inherits name='ca.thurn.SharedTestCase' />
+  <!-- Uncomment this when building the tests
+    <inherits name='ca.thurn.SharedTestCase' />
+  -->
   <source path='client'/>
-  <entry-point class='com.firebase.client.TestEntryPoint'/>
-  <set-property name="user.agent" value="safari"/>
 </module>
