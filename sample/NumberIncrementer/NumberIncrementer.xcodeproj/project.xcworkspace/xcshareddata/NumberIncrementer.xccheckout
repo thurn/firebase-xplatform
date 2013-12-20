@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>4AC896F1-2C82-4C4D-9DA2-E1B6848E21DA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>NumberIncrementer</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4C1DF5DD-057C-44C7-98DC-F3B0340AD306</key>
+		<string>ssh://github.com/thurn/firebase-gwt-wrapper.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>sample/NumberIncrementer/NumberIncrementer.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4C1DF5DD-057C-44C7-98DC-F3B0340AD306</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/thurn/firebase-gwt-wrapper.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4C1DF5DD-057C-44C7-98DC-F3B0340AD306</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4C1DF5DD-057C-44C7-98DC-F3B0340AD306</string>
+			<key>IDESourceControlWCCName</key>
+			<string>firebase</string>
+		</dict>
+	</array>
+</dict>
+</plist>

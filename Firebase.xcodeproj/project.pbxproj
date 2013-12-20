@@ -182,7 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				7C390120185D1F2400F256E2 /* objc-test */,
-				7CBB171D1831D8E0007ABC60 /* objc */,
+				7CBB171D1831D8E0007ABC60 /* firebase-objc */,
 				7CBB1712182EFEA7007ABC60 /* test */,
 				7C187ED81824329E0082E0E2 /* Firebase */,
 				7C84554B182ADF39007C53E8 /* FirebaseJUnit */,
@@ -329,12 +329,12 @@
 			path = client;
 			sourceTree = "<group>";
 		};
-		7CBB171D1831D8E0007ABC60 /* objc */ = {
+		7CBB171D1831D8E0007ABC60 /* firebase-objc */ = {
 			isa = PBXGroup;
 			children = (
 				7CBB171E1831D8E0007ABC60 /* com */,
 			);
-			path = objc;
+			path = "firebase-objc";
 			sourceTree = "<group>";
 		};
 		7CBB171E1831D8E0007ABC60 /* com */ = {
