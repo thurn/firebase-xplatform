@@ -1,7 +1,7 @@
 package com.firebase.client;
 
 public interface ChildEventListener {
-  void onCancelled();
+  void onCancelled(FirebaseError error);
 
   void onChildAdded(DataSnapshot snapshot, String previousChildName);
 

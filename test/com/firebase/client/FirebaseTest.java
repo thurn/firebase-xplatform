@@ -15,7 +15,7 @@ public class FirebaseTest extends SharedTestCase {
   static class TestChildEventListener implements ChildEventListener {
 
     @Override
-    public void onCancelled() {
+    public void onCancelled(FirebaseError error) {
       fail("unexpected cancellation");
     }
 
