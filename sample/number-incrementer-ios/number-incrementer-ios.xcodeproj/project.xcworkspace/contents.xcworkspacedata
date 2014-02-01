@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:NumberIncrementer.xcodeproj">
+      location = "self:number-incrementer-ios.xcodeproj">
    </FileRef>
 </Workspace>

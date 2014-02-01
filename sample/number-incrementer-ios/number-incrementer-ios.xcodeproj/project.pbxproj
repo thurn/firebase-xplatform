@@ -75,23 +75,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7C2E6376186404A600D34AD0 /* NumberIncrementer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumberIncrementer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C2E6376186404A600D34AD0 /* number-incrementer-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "number-incrementer-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C2E6379186404A600D34AD0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7C2E637B186404A600D34AD0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		7C2E637D186404A600D34AD0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		7C2E6381186404A600D34AD0 /* NumberIncrementer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NumberIncrementer-Info.plist"; sourceTree = "<group>"; };
+		7C2E6381186404A600D34AD0 /* number-incrementer-ios-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "number-incrementer-ios-Info.plist"; sourceTree = "<group>"; };
 		7C2E6383186404A600D34AD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7C2E6385186404A600D34AD0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7C2E6387186404A600D34AD0 /* NumberIncrementer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NumberIncrementer-Prefix.pch"; sourceTree = "<group>"; };
+		7C2E6387186404A600D34AD0 /* number-incrementer-ios-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "number-incrementer-ios-Prefix.pch"; sourceTree = "<group>"; };
 		7C2E6388186404A600D34AD0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C2E6389186404A600D34AD0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7C2E638C186404A600D34AD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7C2E638E186404A600D34AD0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		7C2E638F186404A600D34AD0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7C2E6391186404A600D34AD0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		7C2E6397186404A600D34AD0 /* NumberIncrementerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NumberIncrementerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C2E6397186404A600D34AD0 /* number-incrementer-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "number-incrementer-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C2E6398186404A600D34AD0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		7C2E63A0186404A600D34AD0 /* NumberIncrementerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NumberIncrementerTests-Info.plist"; sourceTree = "<group>"; };
+		7C2E63A0186404A600D34AD0 /* number-incrementer-iosTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "number-incrementer-iosTests-Info.plist"; sourceTree = "<group>"; };
 		7C2E63A2186404A600D34AD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7C2E63A4186404A600D34AD0 /* NumberIncrementerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NumberIncrementerTests.m; sourceTree = "<group>"; };
 		7C2E63B21864052E00D34AD0 /* ChildEventListener.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = ChildEventListener.java; sourceTree = "<group>"; };
@@ -161,8 +161,8 @@
 				7C2E63DD1864056600D34AD0 /* src */,
 				7C2E63CC1864053F00D34AD0 /* j2objc-utils */,
 				7C2E63AE1864052E00D34AD0 /* firebase-objc */,
-				7C2E637F186404A600D34AD0 /* NumberIncrementer */,
-				7C2E639E186404A600D34AD0 /* NumberIncrementerTests */,
+				7C2E637F186404A600D34AD0 /* number-incrementer-ios */,
+				7C2E639E186404A600D34AD0 /* number-incrementer-ios-tests */,
 				7C2E6378186404A600D34AD0 /* Frameworks */,
 				7C2E6377186404A600D34AD0 /* Products */,
 			);
@@ -171,8 +171,8 @@
 		7C2E6377186404A600D34AD0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7C2E6376186404A600D34AD0 /* NumberIncrementer.app */,
-				7C2E6397186404A600D34AD0 /* NumberIncrementerTests.xctest */,
+				7C2E6376186404A600D34AD0 /* number-incrementer-ios.app */,
+				7C2E6397186404A600D34AD0 /* number-incrementer-iosTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,7 +194,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7C2E637F186404A600D34AD0 /* NumberIncrementer */ = {
+		7C2E637F186404A600D34AD0 /* number-incrementer-ios */ = {
 			isa = PBXGroup;
 			children = (
 				7C2E6388186404A600D34AD0 /* AppDelegate.h */,
@@ -205,33 +205,33 @@
 				7C2E6391186404A600D34AD0 /* Images.xcassets */,
 				7C2E6380186404A600D34AD0 /* Supporting Files */,
 			);
-			path = NumberIncrementer;
+			path = "number-incrementer-ios";
 			sourceTree = "<group>";
 		};
 		7C2E6380186404A600D34AD0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7C2E6381186404A600D34AD0 /* NumberIncrementer-Info.plist */,
+				7C2E6381186404A600D34AD0 /* number-incrementer-ios-Info.plist */,
 				7C2E6382186404A600D34AD0 /* InfoPlist.strings */,
 				7C2E6385186404A600D34AD0 /* main.m */,
-				7C2E6387186404A600D34AD0 /* NumberIncrementer-Prefix.pch */,
+				7C2E6387186404A600D34AD0 /* number-incrementer-ios-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7C2E639E186404A600D34AD0 /* NumberIncrementerTests */ = {
+		7C2E639E186404A600D34AD0 /* number-incrementer-ios-tests */ = {
 			isa = PBXGroup;
 			children = (
 				7C2E63A4186404A600D34AD0 /* NumberIncrementerTests.m */,
 				7C2E639F186404A600D34AD0 /* Supporting Files */,
 			);
-			path = NumberIncrementerTests;
+			path = "number-incrementer-ios-tests";
 			sourceTree = "<group>";
 		};
 		7C2E639F186404A600D34AD0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7C2E63A0186404A600D34AD0 /* NumberIncrementerTests-Info.plist */,
+				7C2E63A0186404A600D34AD0 /* number-incrementer-iosTests-Info.plist */,
 				7C2E63A1186404A600D34AD0 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -379,9 +379,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7C2E6375186404A600D34AD0 /* NumberIncrementer */ = {
+		7C2E6375186404A600D34AD0 /* number-incrementer-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C2E63A8186404A600D34AD0 /* Build configuration list for PBXNativeTarget "NumberIncrementer" */;
+			buildConfigurationList = 7C2E63A8186404A600D34AD0 /* Build configuration list for PBXNativeTarget "number-incrementer-ios" */;
 			buildPhases = (
 				7C2E6372186404A600D34AD0 /* Sources */,
 				7C2E6373186404A600D34AD0 /* Frameworks */,
@@ -392,14 +392,14 @@
 			);
 			dependencies = (
 			);
-			name = NumberIncrementer;
+			name = "number-incrementer-ios";
 			productName = NumberIncrementer;
-			productReference = 7C2E6376186404A600D34AD0 /* NumberIncrementer.app */;
+			productReference = 7C2E6376186404A600D34AD0 /* number-incrementer-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7C2E6396186404A600D34AD0 /* NumberIncrementerTests */ = {
+		7C2E6396186404A600D34AD0 /* number-incrementer-iosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C2E63AB186404A600D34AD0 /* Build configuration list for PBXNativeTarget "NumberIncrementerTests" */;
+			buildConfigurationList = 7C2E63AB186404A600D34AD0 /* Build configuration list for PBXNativeTarget "number-incrementer-iosTests" */;
 			buildPhases = (
 				7C2E6393186404A600D34AD0 /* Sources */,
 				7C2E6394186404A600D34AD0 /* Frameworks */,
@@ -410,9 +410,9 @@
 			dependencies = (
 				7C2E639D186404A600D34AD0 /* PBXTargetDependency */,
 			);
-			name = NumberIncrementerTests;
+			name = "number-incrementer-iosTests";
 			productName = NumberIncrementerTests;
-			productReference = 7C2E6397186404A600D34AD0 /* NumberIncrementerTests.xctest */;
+			productReference = 7C2E6397186404A600D34AD0 /* number-incrementer-iosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -428,7 +428,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7C2E6371186404A600D34AD0 /* Build configuration list for PBXProject "NumberIncrementer" */;
+			buildConfigurationList = 7C2E6371186404A600D34AD0 /* Build configuration list for PBXProject "number-incrementer-ios" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -441,8 +441,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7C2E6375186404A600D34AD0 /* NumberIncrementer */,
-				7C2E6396186404A600D34AD0 /* NumberIncrementerTests */,
+				7C2E6375186404A600D34AD0 /* number-incrementer-ios */,
+				7C2E6396186404A600D34AD0 /* number-incrementer-iosTests */,
 			);
 		};
 /* End PBXProject section */
@@ -513,7 +513,7 @@
 /* Begin PBXTargetDependency section */
 		7C2E639D186404A600D34AD0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7C2E6375186404A600D34AD0 /* NumberIncrementer */;
+			target = 7C2E6375186404A600D34AD0 /* number-incrementer-ios */;
 			targetProxy = 7C2E639C186404A600D34AD0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -651,9 +651,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NumberIncrementer/NumberIncrementer-Prefix.pch";
-				INFOPLIST_FILE = "NumberIncrementer/NumberIncrementer-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "NumberIncrementer/number-incrementer-ios-Prefix.pch";
+				INFOPLIST_FILE = "NumberIncrementer/number-incrementer-ios-Info.plist";
+				PRODUCT_NAME = "number-incrementer-ios";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -665,9 +665,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "NumberIncrementer/NumberIncrementer-Prefix.pch";
-				INFOPLIST_FILE = "NumberIncrementer/NumberIncrementer-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "NumberIncrementer/number-incrementer-ios-Prefix.pch";
+				INFOPLIST_FILE = "NumberIncrementer/number-incrementer-ios-Info.plist";
+				PRODUCT_NAME = "number-incrementer-ios";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -688,8 +688,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "NumberIncrementerTests/NumberIncrementerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "NumberIncrementerTests/number-incrementer-iosTests-Info.plist";
+				PRODUCT_NAME = "number-incrementer-iosTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -707,8 +707,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NumberIncrementer/NumberIncrementer-Prefix.pch";
-				INFOPLIST_FILE = "NumberIncrementerTests/NumberIncrementerTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "NumberIncrementerTests/number-incrementer-iosTests-Info.plist";
+				PRODUCT_NAME = "number-incrementer-iosTests";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -717,7 +717,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7C2E6371186404A600D34AD0 /* Build configuration list for PBXProject "NumberIncrementer" */ = {
+		7C2E6371186404A600D34AD0 /* Build configuration list for PBXProject "number-incrementer-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7C2E63A6186404A600D34AD0 /* Debug */,
@@ -726,7 +726,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C2E63A8186404A600D34AD0 /* Build configuration list for PBXNativeTarget "NumberIncrementer" */ = {
+		7C2E63A8186404A600D34AD0 /* Build configuration list for PBXNativeTarget "number-incrementer-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7C2E63A9186404A600D34AD0 /* Debug */,
@@ -735,7 +735,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C2E63AB186404A600D34AD0 /* Build configuration list for PBXNativeTarget "NumberIncrementerTests" */ = {
+		7C2E63AB186404A600D34AD0 /* Build configuration list for PBXNativeTarget "number-incrementer-iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7C2E63AC186404A600D34AD0 /* Debug */,
