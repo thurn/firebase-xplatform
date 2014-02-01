@@ -7,7 +7,7 @@ To illustrate the use of this library, we will implement an app called NumberInc
 
 Screenshots of the three apps we will implement:
 
-![Tutorial Results](images/results.png?raw=true)
+![Tutorial Results](images/results.png?raw=true =700x362)
 
 ### Prerequisites ###
 
@@ -92,61 +92,54 @@ Finally, add a new class to com.example.incrementer.web named Main which impleme
 
 At this point, you should be able to run the web application via Run As > Web Application and see the result at a URL like [http://127.0.0.1:8888/Main.html?gwt.codesvr=127.0.0.1:9997](http://127.0.0.1:8888/Main.html?gwt.codesvr=127.0.0.1:9997). Note that the UI might take a while to appear on the first run.
 
+### Creating the iOS project ###
+
+Open Xcode 5 and create a new project via File > New > Project. Use the Single View Application template. Name the product NumberIncrementer and use “com.example.incrementer” as the company identifier.
+
+Locate firebase-objc.zip and extract it to your local file system. In Xcode, right click on the project and select “Add files to NumberIncrementer” and locate the extracted files. Select the firebase-objc/ directory and check “copy items into destination group’s folder” and “create groups for any added folders”. Locate j2objc-utils.zip and repeat this procedure.
+
+Go to “Add files to NumberIncrementer” again and locate number-incrementer-shared on the file system. Select the src/ folder, and this time, you should **uncheck** “copy items into destination group’s folder” so it creates a reference to our files.
+
+You also need to install j2objc. Go to [code.google.com/p/j2objc/](https://code.google.com/p/j2objc/) and download the latest release of j2objc.zip (it should be a featured download on the left). Put the contents of this zip file at /usr/local/j2objc (you can use a different directory if you change the path in the instructions below). Now open up the Build Settings for the NumberIncrementer Xcode project and make the following changes:
+
+* **Other Linker Flags:** -L/usr/local/j2objc/lib -ljre_emul -lz -ObjC
+* **Header Search Paths:** add /usr/local/j2objc/include
+* **Library Search Paths:** /usr/local/j2objc/lib
+
+You’ll also need to install Firebase.framework. Grab the latest copy of it from firebase.com and drag a copy into your frameworks folder. 
+
+Go to the Build Phases tab for the NumberIncrementer target and look at the “Compile Sources” phase. You should see various .java files listed here such as Firebase.java and NumberIncrementer.java. You are going to need to keep this list up to date whenever you create a new java file in the shared project if you want it to get compiled. Also look at the “Link Binary with Libraries” section. Add the following libraries to be linked:
+
+* Firebase.framework
+* libicucore.dylib
+* libc++.dylib
+* CFNetwork.framework
+* Security.framework
+* SystemConfiguration.framework
+
+Go to the Build Rules tab for the NumberIncrementer target. Go to Editor > Add Build Rule, and select “Process: Java source files”. Paste the following as the command to run:
+
+`/usr/local/j2objc/j2objc --no-package-directories --prefixes prefixes.properties -use-arc -d ${DERIVED_FILES_DIR} -classpath ${PROJECT_DIR}/firebase-objc:${PROJECT_DIR}/j2objc-utils:${PROJECT_DIR}/src ${INPUT_FILE_PATH};`
+
+Below this, where it says “Output Files”, put the following two entries:
+
+* `${DERIVED_FILES_DIR}/${INPUT_FILE_BASE}.m`
+* `${DERIVED_FILES_DIR}/${INPUT_FILE_BASE}.h`
+
+Next, right click on the NumberIncrementer project in the Project Navigator and create a new Empty file. Name the file prefixes.properties, and put the following lines in it:
+
+* `com.firebase.client: FC`
+* `com.example.incrementer.shared: NI`
+* `org.eclipse.xtext.xbase.lib: XXL`
+
+This will help shorten our generated class names a little bit. Now go to the Main_iPhone storyboard and add a button that says “Increment”. Hook up a Touch Up Inside connection from here to a method in ViewController.m named onIncrement.
+
+The complete source code for ViewController.m is [available here](https://github.com/thurn/firebase-xplatform/blob/master/sample/number-incrementer-ios/number-incrementer-ios/ViewController.m). We store a reference to the NumberIncrementer class (called NINumberIncrementer in Objective C thanks to our prefixes file) in the ViewController, and we initialize it in viewDidLoad. The important stuff happens in the onIncrement method, though, where we use CallbackWrappers.h to make a Java-compatible Procedure1 out of an Objective C block. Inside the body of the block, we simply pop up an alert as usual.
+
+The java compilation process can kind of confuse Xcode because the header files haven’t been generated yet, so you might see errors in ViewController.m Despite that, building and running NumberIncrementer should now work. In the build log, you should see the Java files getting converted to Objective C, and then the resulting Objective C files should get compiled. If everything went well, the app should start up in the simulator.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Other Stuff ##
-
-This is an implementation of the Firebase Java interface for Google Web
-Toolkit. It is an incomplete work-in-progress, but still largely functional.
-There are no special runtime dependencies, but tests depend on my common base
-class library (https://github.com/thurn/shared-gwttestcase). This needs to be
-added as a separate Eclipse project and then depended on by the firebase
-project in order to run tests. There are two Eclipse run configurations for
-tests, one to run the tests in JS, and another to run the tests in Java against
-the actual Firebase java jarfile (in order to verify that the behavior is the
-same). This depends on having firebase.jar available on the classpath, of
-course.
-
-When you use this library in javascript, you need to have firebase.js already
-injected into the GWT iFrame (injecting it at the top-level will not work!).
-The best way to accomplish this is via a GWT ScriptInjector.
-
-## Known Limitations ##
+## Known Limitations of firebase-xplatform ##
 
 By definition, this library can only support the common subset of functionality
 available between the three Firebase client libraries it wraps. That means that
@@ -169,7 +162,7 @@ omissions in the Objective C API, a few other methods don't work:
 This isn't an exhaustive list of the things that won't work cross-platform,
 merely the ones that you're most likely to run into.
 
-## Testing ##
+## firebase-xplatform tests ##
 
 You should be able to import a clone of the project as an Eclipse project via
 Import > Existing Projects into Workspace. You then also need to clone
