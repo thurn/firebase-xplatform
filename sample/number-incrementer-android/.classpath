@@ -7,6 +7,5 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/number-incrementer-shared"/>
 	<classpathentry kind="lib" path="libs/firebase-client-jvm-LATEST.jar"/>
-	<classpathentry kind="lib" path="libs/j2objc-utils-0.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

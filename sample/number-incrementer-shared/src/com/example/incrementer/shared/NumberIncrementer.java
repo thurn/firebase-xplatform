@@ -1,7 +1,5 @@
 package com.example.incrementer.shared;
 
-import org.eclipse.xtext.xbase.lib.Procedures;
-
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -13,13 +11,16 @@ import com.firebase.client.Transaction.Result;
 public class NumberIncrementer {
   private final Firebase firebase;
   
+  public static interface Callback {
+    public void onIncrement(long value);
+  }
+  
   public NumberIncrementer(Firebase firebase) {
     this.firebase = firebase;
   }
   
-  public void increment(final Procedures.Procedure1<Long> callback) {
+  public void increment(final Callback callback) {
     firebase.child("value").runTransaction(new Handler() {
-
       @Override
       public Result doTransaction(MutableData currentData) {
         Long value = currentData.getValue(Long.class);
@@ -29,9 +30,8 @@ public class NumberIncrementer {
 
       @Override
       public void onComplete(FirebaseError error, boolean committed, DataSnapshot currentData) {
-        callback.apply(currentData.getValue(Long.class));
+        callback.onIncrement(currentData.getValue(Long.class));
       }
-
     });
   }
 }

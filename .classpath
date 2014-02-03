@@ -7,7 +7,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/objenesis-1.2.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/shared-test-case.jar"/>
 	<classpathentry excluding="ca/thurn/testing/|ca/thurn/testing/" kind="src" output="test-classes" path="test"/>
-	<classpathentry kind="src" path="firebase-objc"/>
+	<classpathentry kind="src" path="gwt"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>

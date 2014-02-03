@@ -1,7 +1,5 @@
 package com.example.incrementer.web;
 
-import org.eclipse.xtext.xbase.lib.Procedures;
-
 import com.example.incrementer.shared.NumberIncrementer;
 import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
@@ -38,9 +36,9 @@ public class Main implements EntryPoint {
     button.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
-        incrementer.increment(new Procedures.Procedure1<Long>() {
+        incrementer.increment(new NumberIncrementer.Callback() {
           @Override
-          public void apply(Long numIncrements) {
+          public void onIncrement(long numIncrements) {
             Window.alert(numIncrements + " increments!");
           }
         });

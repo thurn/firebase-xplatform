@@ -1,12 +1,10 @@
 package com.example.incrementer.shared;
 
-import org.eclipse.xtext.xbase.lib.Procedures;
+import ca.thurn.testing.SharedTestCase;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.Firebase.CompletionListener;
 import com.firebase.client.FirebaseError;
-
-import ca.thurn.testing.SharedTestCase;
 
 public class NumberIncrementerTest extends SharedTestCase {
   private Firebase firebase;
@@ -25,10 +23,10 @@ public class NumberIncrementerTest extends SharedTestCase {
   public void testIncrementNumber() {
     beginAsyncTestBlock();
     NumberIncrementer incrementer = new NumberIncrementer(firebase);
-    incrementer.increment(new Procedures.Procedure1<Long>() {
+    incrementer.increment(new NumberIncrementer.Callback() {
       @Override
-      public void apply(Long numIncrements) {
-        assertEquals(new Long(43), numIncrements);
+      public void onIncrement(long numIncrements) {
+        assertEquals(43, numIncrements);
         finished();
       }
     });

@@ -68,7 +68,7 @@ public class Query {
       [listener onChildRemovedWithFCDataSnapshot: javaSnapshot];
     };
     void (^cancelledCallback)() = ^{
-      [listener onCancelled];
+      [listener onCancelledWithFCFirebaseError: nil];
     };
     FirebaseHandle addedHandle = [firebase observeEventType: FEventTypeChildAdded
                             andPreviousSiblingNameWithBlock: addedCallback

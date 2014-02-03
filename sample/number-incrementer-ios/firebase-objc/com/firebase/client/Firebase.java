@@ -112,6 +112,11 @@ public class Firebase extends Query {
     return [[FCFirebase alloc] initWithId: firebase.root];
   ]-*/;
   
+  public native Firebase push() /*-[
+    Firebase *firebase = self->firebase_;
+    return [[FCFirebase alloc] initWithId: [firebase childByAutoId]];
+  ]-*/;
+  
   public void setValue(Object value) {
     setValue(value, null, null);
   }

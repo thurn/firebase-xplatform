@@ -32,7 +32,7 @@ public class Query {
       listener.@com.firebase.client.ChildEventListener::onChildMoved(Lcom/firebase/client/DataSnapshot;Ljava/lang/String;)(javaSnapshot, previous);
     };
     var cancelCallback = function() {
-      listener.@com.firebase.client.ChildEventListener::onCancelled()();
+      listener.@com.firebase.client.ChildEventListener::onCancelled(Lcom/firebase/client/FirebaseError;)(null);
     };
     firebase.on("child_added", addedCallback, cancelCallback);
     firebase.on("child_changed", changedCallback, cancelCallback);

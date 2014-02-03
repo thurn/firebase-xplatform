@@ -1,16 +1,14 @@
 package com.example.incrementer.android;
 
-import org.eclipse.xtext.xbase.lib.Procedures;
-
-import com.example.incrementer.shared.NumberIncrementer;
-import com.firebase.client.Firebase;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
+
+import com.example.incrementer.shared.NumberIncrementer;
+import com.firebase.client.Firebase;
 
 public class MainActivity extends Activity {
 
@@ -23,9 +21,9 @@ public class MainActivity extends Activity {
     findViewById(R.id.increment).setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
-        numberIncrementer.increment(new Procedures.Procedure1<Long>() {
+        numberIncrementer.increment(new NumberIncrementer.Callback() {
           @Override
-          public void apply(Long numIncrements) {
+          public void onIncrement(long numIncrements) {
             Toast.makeText(MainActivity.this, numIncrements + " increments!",
                 Toast.LENGTH_SHORT).show();
           }
