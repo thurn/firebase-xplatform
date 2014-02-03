@@ -91,7 +91,7 @@ The first thing we need to do is set up our Android build path properly. Go to t
 
 The user interface of our Android application will just be a button that says “Increment!”. Take a look [here](https://github.com/thurn/firebase-xplatform/blob/master/sample/number-incrementer-android/res/layout/activity_main.xml) at the source for an activity_main.xml layout which will accomplish this. The source code for MainActivity (available [here](https://github.com/thurn/firebase-xplatform/blob/master/sample/number-incrementer-android/src/com/example/incrementer/android/MainActivity.java)) is scarcely more complicated. We make a new NumberIncrementer in onCreate() and invoke `increment()` when the button is clicked, displaying a Toast with the current number of increments. Finally, you’ll need to add the INTERNET permission to your application, refer to the source of AndroidManifest.xml [here](https://github.com/thurn/firebase-xplatform/blob/master/sample/number-incrementer-android/AndroidManifest.xml).
 
-** Android project structure: **
+**Android project structure:**
 
 ![Android project structure](images/androidStructure.png?raw=true)
 
@@ -114,7 +114,7 @@ We also want to make the files in number-incrementer-shared available for Javasc
 
 Finally, add a new class to com.example.incrementer.web named Main which implements the EntryPoint interface. The source code for Main [is here](https://github.com/thurn/firebase-xplatform/blob/master/sample/number-incrementer-web/src/com/example/incrementer/web/Main.java). In the `onModuleLoad()` method, we inject the javascript for Firebase. It is **not** sufficient to load firebase.js from a \<script\> tag in Main.html, the library must be injected into the GWT iFrame via a ScriptInjector. Once the Firebase javascript has loaded, we create our user interface. It’s very similar to what we did in Android, just a simple button that pops up an alert when you click it.
 
-** Web project structure: **
+**Web project structure:**
 
 ![Web project structure](images/webStructure.png?raw=true)
 
@@ -168,7 +168,7 @@ This will help shorten our generated class names a little bit. Now go to the Mai
 
 The complete source code for ViewController.m is [available here](https://github.com/thurn/firebase-xplatform/blob/master/sample/number-incrementer-ios/NumberIncrementer/ViewController.m). We store a reference to the NumberIncrementer class (called NINumberIncrementer in Objective C thanks to our prefixes file) in the ViewController, and we initialize it in `viewDidLoad`. The important stuff happens in the `onIncrement` method, though, where we invole our increment method. The ViewController itself implements the `NumberIncrementer.Callback` interface, so our `onIncrementWithLong` method gets called, and we show the alert.
 
-** iOS Project Structure: **
+**iOS Project Structure:**
 
 ![iOS project structure](images/iosStructure.png?raw=true)
 
