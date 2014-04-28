@@ -39,7 +39,7 @@ public class FirebaseTest extends SharedTestCase {
 
   static abstract class TestValueEventListener implements ValueEventListener {
     @Override
-    public void onCancelled() {
+    public void onCancelled(FirebaseError error) {
       fail("Unexpected cancellation");
     }
   }

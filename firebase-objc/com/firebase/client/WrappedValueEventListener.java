@@ -9,7 +9,7 @@ class WrappedValueEventListener implements ValueEventListener {
   }
   
   @Override
-  public void onCancelled() {
+  public void onCancelled(FirebaseError error) {
     throw new RuntimeException("You cannot re-use the listener you get back from addValueEventListener()");
   }
 

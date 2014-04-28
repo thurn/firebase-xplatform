@@ -15,7 +15,7 @@ class JavascriptValueEventListener implements ValueEventListener {
   }
 
   @Override
-  public void onCancelled() {
+  public void onCancelled(FirebaseError error) {
     throw new UnsupportedOperationException("You cannot re-use the listener you get back "
         + "from addEventListener");
   }

@@ -31,7 +31,7 @@ public class Firebase extends Query {
   }
 
   public static interface CompletionListener {
-    public void onComplete(FirebaseError error);
+    public void onComplete(FirebaseError error, Firebase firebase);
   }
 
   public static Config getDefaultConfig() {
@@ -111,7 +111,7 @@ public class Firebase extends Query {
   static native JavaScriptObject onComplete(CompletionListener listener) /*-{
     return function(error) {
       var firebaseError = @com.firebase.client.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
-      listener.@com.firebase.client.Firebase.CompletionListener::onComplete(Lcom/firebase/client/FirebaseError;)(firebaseError);
+      listener.@com.firebase.client.Firebase.CompletionListener::onComplete(Lcom/firebase/client/FirebaseError;Lcom/firebase/client/Firebase;)(firebaseError, null);
     };
   }-*/;
 

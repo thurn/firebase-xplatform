@@ -15,10 +15,6 @@ public class Query {
     this.firebase = firebase;
   }
   
-  public void helloWorld() {
-    System.out.println("Hello, world!");
-  }
-  
   public native void addListenerForSingleValueEvent(ValueEventListener listener) /*-[
     Firebase *firebase = self->firebase_;
     void (^onDataChange)(FDataSnapshot*) = ^(FDataSnapshot *snapshot) {

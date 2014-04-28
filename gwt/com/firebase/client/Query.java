@@ -47,8 +47,9 @@ public class Query {
       var javaSnapshot = @com.firebase.client.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(snapshot);
       listener.@com.firebase.client.ValueEventListener::onDataChange(Lcom/firebase/client/DataSnapshot;)(javaSnapshot);
     };
-    var cancelCallback = function() {
-      listener.@com.firebase.client.ValueEventListener::onCancelled()();
+    var cancelCallback = function(error) {
+      var firebaseError = @com.firebase.client.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
+      listener.@com.firebase.client.ValueEventListener::onCancelled(Lcom/firebase/client/FirebaseError;)(firebaseError);
     };
     firebase.once("value", callback, cancelCallback);
   }-*/;
@@ -59,8 +60,9 @@ public class Query {
       var javaSnapshot = @com.firebase.client.DataSnapshot::wrapDataSnapshot(Lcom/google/gwt/core/client/JavaScriptObject;)(snapshot);
       listener.@com.firebase.client.ValueEventListener::onDataChange(Lcom/firebase/client/DataSnapshot;)(javaSnapshot);
     };
-    var cancelCallback = function() {
-      listener.@com.firebase.client.ValueEventListener::onCancelled()();
+    var cancelCallback = function(error) {
+      var firebaseError = @com.firebase.client.Firebase::wrapError(Lcom/google/gwt/core/client/JavaScriptObject;)(error);
+      listener.@com.firebase.client.ValueEventListener::onCancelled(Lcom/firebase/client/FirebaseError;)(firebaseError);
     };
     firebase.on("value", callback, cancelCallback);
     return @com.firebase.client.JavascriptValueEventListener::wrapCallback(Lcom/google/gwt/core/client/JavaScriptObject;)(callback);
