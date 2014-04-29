@@ -85,6 +85,16 @@ public class DataSnapshot {
     return (T) getValue();
   }
   
+  public native DataSnapshot child(String name) /*-[
+    FDataSnapshot *snapshot = self->snapshot_;
+    return [[FCDataSnapshot alloc] initWithId:[snapshot childSnapshotForPath:name]];
+  ]-*/;
+  
+  public native boolean hasChild(String name) /*-[
+    FDataSnapshot *snapshot = self->snapshot_;
+    return [snapshot hasChild: name];
+  ]-*/;
+  
   public native Firebase getRef() /*-[
     FDataSnapshot *snapshot = self->snapshot_;
     return [[FCFirebase alloc] initWithId: snapshot];

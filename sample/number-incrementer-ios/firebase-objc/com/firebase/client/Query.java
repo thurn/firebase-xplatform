@@ -15,6 +15,10 @@ public class Query {
     this.firebase = firebase;
   }
   
+  public Object getWrappedFirebase() {
+    return firebase;
+  }  
+  
   public native void addListenerForSingleValueEvent(ValueEventListener listener) /*-[
     Firebase *firebase = self->firebase_;
     void (^onDataChange)(FDataSnapshot*) = ^(FDataSnapshot *snapshot) {
@@ -22,7 +26,7 @@ public class Query {
        [listener onDataChangeWithFCDataSnapshot: javaSnapshot];
     };
     void (^onCancel)() = ^{
-      [listener onCancelled];
+      [listener onCancelledWithFCFirebaseError: nil];
     };
     [firebase observeSingleEventOfType: FEventTypeValue
                              withBlock: onDataChange
@@ -36,7 +40,7 @@ public class Query {
       [listener onDataChangeWithFCDataSnapshot: javaSnapshot];
     };
     void (^onCancel)() = ^{
-      [listener onCancelled];
+      [listener onCancelledWithFCFirebaseError: nil];
     };
     FirebaseHandle handle = [firebase observeEventType: FEventTypeValue
                                              withBlock: onDataChange
@@ -97,10 +101,10 @@ public class Query {
   private native void removeChildEventListeners(long addedHandle, long changedHandle,
       long movedHandle, long removedHandle) /*-[
     Firebase *firebase = self->firebase_;
-    [firebase removeObserverWithHandle: addedHandle];
-    [firebase removeObserverWithHandle: changedHandle];
-    [firebase removeObserverWithHandle: movedHandle];
-    [firebase removeObserverWithHandle: removedHandle];
+    [firebase removeObserverWithHandle: (FirebaseHandle)addedHandle];
+    [firebase removeObserverWithHandle: (FirebaseHandle)changedHandle];
+    [firebase removeObserverWithHandle: (FirebaseHandle)movedHandle];
+    [firebase removeObserverWithHandle: (FirebaseHandle)removedHandle];
   ]-*/;
   
   public void removeEventListener(ValueEventListener listener) {
@@ -114,7 +118,7 @@ public class Query {
   
   private native void removeValueEventListener(long handle) /*-[
     Firebase *firebase = self->firebase_;
-    [firebase removeObserverWithHandle: handle];
+    [firebase removeObserverWithHandle: (FirebaseHandle)handle];
   ]-*/;
   
   public Query endAt() {

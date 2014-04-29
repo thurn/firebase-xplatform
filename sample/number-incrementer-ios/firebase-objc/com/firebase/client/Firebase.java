@@ -21,7 +21,7 @@ public class Firebase extends Query {
   }
 
   public static interface CompletionListener {
-    public void onComplete(FirebaseError error);
+    public void onComplete(FirebaseError error, Firebase firebase);
   }
 
   public static native Object createFirebase(String url) /*-[
@@ -88,7 +88,8 @@ public class Firebase extends Query {
   
   private static native Object wrapCompletionListener(CompletionListener listener) /*-[
     return ^(NSError *error, Firebase *ref) {
-      [listener onCompleteWithFCFirebaseError: [[FCFirebaseError alloc] initWithId: error]];
+      [listener onCompleteWithFCFirebaseError:[[FCFirebaseError alloc] initWithId: error]
+                               withFCFirebase:[[FCFirebase alloc] initWithId:ref]];
     };
   ]-*/;
   
@@ -110,11 +111,6 @@ public class Firebase extends Query {
   public native Firebase getRoot() /*-[
     Firebase *firebase = self->firebase_;
     return [[FCFirebase alloc] initWithId: firebase.root];
-  ]-*/;
-  
-  public native Firebase push() /*-[
-    Firebase *firebase = self->firebase_;
-    return [[FCFirebase alloc] initWithId: [firebase childByAutoId]];
   ]-*/;
   
   public void setValue(Object value) {
