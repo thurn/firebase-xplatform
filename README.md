@@ -32,9 +32,9 @@ Finally, I’m afraid that there are some third-party libraries that you need to
 
 In addition, you’ll want to pick up copies of the following libraries from github:
 
-* [firebase-gwt.jar](https://github.com/thurn/firebase-xplatform/releases/download/0.1/firebase-gwt-0.1.jar)
-* [firebase-objc.zip](https://github.com/thurn/firebase-xplatform/releases/download/0.1/firebase-objc-0.1.zip)
-* [shared-test-case.jar](https://github.com/thurn/firebase-xplatform/releases/download/0.1/shared-test-case-0.1.jar)
+* [firebase-gwt.jar](https://github.com/thurn/firebase-xplatform/releases/)
+* [firebase-objc.zip](https://github.com/thurn/firebase-xplatform/releases/)
+* [shared-test-case.jar](https://github.com/thurn/firebase-xplatform/releases/)
 
 ### Project Structure ###
 
