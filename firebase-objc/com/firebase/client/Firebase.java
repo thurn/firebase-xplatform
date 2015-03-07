@@ -86,7 +86,7 @@ public class Firebase extends Query {
     }
   ]-*/;
   
-  private static native Object wrapCompletionListener(CompletionListener listener) /*-[
+  public static native Object wrapCompletionListener(CompletionListener listener) /*-[
     return ^(NSError *error, Firebase *ref) {
       [listener onCompleteWithFCFirebaseError:[[FCFirebaseError alloc] initWithId: error]
                                withFCFirebase:[[FCFirebase alloc] initWithId:ref]];
