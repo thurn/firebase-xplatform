@@ -47,7 +47,7 @@ public class DataSnapshot {
     return result;
   ]-*/;
   
-  private native static Object convertToJavaObject(Object value) /*-[
+  public native static Object convertToJavaObject(Object value) /*-[
     if (value == nil || [value isKindOfClass: [NSNull class]]) {
       return nil;
     } else if ([value isKindOfClass: [NSNumber class]]) {
